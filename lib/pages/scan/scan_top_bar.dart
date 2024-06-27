@@ -10,7 +10,7 @@ class ScanTopBar extends StatelessWidget
       Size.fromHeight(const CupertinoNavigationBar().preferredSize.height);
 
   @override
-  bool shouldFullyObstruct(BuildContext context) => false;
+  bool shouldFullyObstruct(BuildContext context) => true;
 
   @override
   Widget build(BuildContext context) {
