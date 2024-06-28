@@ -7,9 +7,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      navigationBar: HomeTopBar(),
-      child: HomeBody(),
+    return const PopScope(
+      canPop: false,
+      child: CupertinoPageScaffold(
+        navigationBar: HomeTopBar(),
+        child: HomeBody(),
+      ),
     );
   }
 }

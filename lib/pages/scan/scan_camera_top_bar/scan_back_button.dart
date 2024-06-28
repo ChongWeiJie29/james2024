@@ -9,13 +9,11 @@ class ScanBackButton extends StatelessWidget {
       width: 80,
       child: CupertinoButton(
         padding: EdgeInsets.zero,
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => Navigator.pop(context),
         child: const Row(
           children: <Widget>[
             Icon(CupertinoIcons.back),
-            Text('Home'),
+            Text('Back'),
           ],
         ),
       ),
