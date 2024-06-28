@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:james2024/pages/scan/scan_camera_body/scan_camera_overlay.dart';
 
 class ScanCameraWindow extends StatefulWidget {
   const ScanCameraWindow({
@@ -22,7 +23,14 @@ class _ScanCameraWindow extends State<ScanCameraWindow> {
       future: widget.initializeControllerFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return CameraPreview(widget.controller);
+          return AspectRatio(
+              aspectRatio: 3 / 4,
+              child: Stack(fit: StackFit.expand, children: [
+                CameraPreview(widget.controller),
+                const ScanCameraOverlay(
+                  padding: 50,
+                )
+              ]));
         } else {
           return const Center(child: CupertinoActivityIndicator());
         }

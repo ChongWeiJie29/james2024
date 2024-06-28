@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:james2024/pages/scan/scan_back_button.dart';
+import 'package:james2024/pages/scan/scan_camera_top_bar/scan_back_button.dart';
 
 class ScanTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {

@@ -1,7 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:james2024/pages/scan/scan_camera_capture_button.dart';
-import 'package:james2024/pages/scan/scan_camera_window.dart';
+import 'package:james2024/pages/scan/scan_camera_body/scan_camera_capture_button.dart';
+import 'package:james2024/pages/scan/scan_camera_body/scan_camera_window.dart';
+import 'package:james2024/pages/scan/scan_common.dart';
 
 class ScanCameraBody extends StatefulWidget {
   const ScanCameraBody({super.key});
@@ -14,6 +15,7 @@ class _ScanCameraBody extends State<ScanCameraBody> {
   late List<CameraDescription> _cameras;
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  PhoneAngle phoneAngle = PhoneAngle.back;
 
   @override
   void initState() {
@@ -33,7 +35,7 @@ class _ScanCameraBody extends State<ScanCameraBody> {
       // do something on error
     }
 
-    // Leave this here. It is important for synchronization.
+    // Leave this here. It is important for to trigger a rebuild, once the camera is initialized.
     setState(() {});
   }
 
