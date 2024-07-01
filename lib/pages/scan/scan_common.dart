@@ -1,8 +1,8 @@
-enum PhoneAngle {
-  front,
-  back,
-  top,
-  bottom,
-  right,
-  left,
-}
+const List<String> phoneAngles = <String>[
+  'front',
+  'back',
+  'top',
+  'right',
+  'bottom',
+  'left',
+];
