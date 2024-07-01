@@ -59,14 +59,19 @@ class _ScanCameraBody extends State<ScanCameraBody> {
           ScanCameraWindow(
             initializeControllerFuture: _initializeControllerFuture,
             controller: _controller,
+            phoneAngleState: _phoneAngleState,
           ),
-          ScanCameraStateButton(
-              phoneAngleState: _phoneAngleState,
-              updatePhoneAngleState: updatePhoneAngle),
-          ScanCameraCaptureButton(
-            initializeControllerFuture: _initializeControllerFuture,
-            controller: _controller,
-          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ScanCameraStateButton(
+                    phoneAngleState: _phoneAngleState,
+                    updatePhoneAngleState: updatePhoneAngle),
+                ScanCameraCaptureButton(
+                  initializeControllerFuture: _initializeControllerFuture,
+                  controller: _controller,
+                ),
+              ]),
         ]);
   }
 }

@@ -3,14 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/scan/scan_camera_body/scan_camera_overlay.dart';
 
 class ScanCameraWindow extends StatefulWidget {
-  const ScanCameraWindow({
-    super.key,
-    required this.initializeControllerFuture,
-    required this.controller,
-  });
+  const ScanCameraWindow(
+      {super.key,
+      required this.initializeControllerFuture,
+      required this.controller,
+      required this.phoneAngleState});
 
   final Future<void> initializeControllerFuture;
   final CameraController controller;
+  final int phoneAngleState;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraWindow();
@@ -27,8 +28,9 @@ class _ScanCameraWindow extends State<ScanCameraWindow> {
               aspectRatio: 3 / 4,
               child: Stack(fit: StackFit.expand, children: [
                 CameraPreview(widget.controller),
-                const ScanCameraOverlay(
+                ScanCameraOverlay(
                   padding: 50,
+                  phoneAngleState: widget.phoneAngleState,
                 )
               ]));
         } else {

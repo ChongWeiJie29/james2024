@@ -1,23 +1,57 @@
 import 'package:flutter/cupertino.dart';
 
-class ScanCameraOverlay extends StatelessWidget {
+class ScanCameraOverlay extends StatefulWidget {
   const ScanCameraOverlay({
     super.key,
     required this.padding,
+    required this.phoneAngleState,
   });
 
   final double padding;
+  final int phoneAngleState;
+
+  @override
+  State<StatefulWidget> createState() => _ScanCameraOverlay();
+}
+
+class _ScanCameraOverlay extends State<ScanCameraOverlay> {
+  double horizontalPadding = 0;
+  double verticalPadding = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    calculatePadding();
+  }
+
+  calculatePadding() {
+    switch (widget.phoneAngleState) {
+      case 0:
+      case 1:
+        setState(() {
+          horizontalPadding = 100;
+          verticalPadding = 100;
+        });
+      case 2:
+      case 4:
+        setState(() {
+          horizontalPadding = 200;
+          verticalPadding = 200;
+        });
+      case 3:
+      case 5:
+        setState(() {
+          horizontalPadding = 200;
+          verticalPadding = 100;
+        });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    calculatePadding();
     return LayoutBuilder(builder: (context, constraints) {
       Color color = const Color(0x55000000);
-      // double parentAspectRatio = constraints.maxWidth / constraints.maxHeight;
-      double horizontalPadding;
-      double verticalPadding;
-
-      horizontalPadding = padding;
-      verticalPadding = padding;
       return Stack(fit: StackFit.expand, children: [
         Align(
             alignment: Alignment.centerLeft,
