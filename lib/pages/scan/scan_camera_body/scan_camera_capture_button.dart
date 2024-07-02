@@ -18,19 +18,20 @@ class ScanCameraCaptureButton extends StatefulWidget {
 class _ScanCameraCaptureButton extends State<ScanCameraCaptureButton> {
   Widget _cameraCaptureButton() {
     return CupertinoButton(
-        onPressed: () async {
-          try {
-            await widget.initializeControllerFuture;
-            final image = await widget.controller.takePicture();
-            print('Picture saved to ${image.path}');
-          } on CameraException catch (_) {
-            // do something on error
-          }
-        },
-        child: const Icon(
-          CupertinoIcons.camera,
-          size: 30,
-        ));
+      onPressed: () async {
+        try {
+          await widget.initializeControllerFuture;
+          final image = await widget.controller.takePicture();
+          // TODO: Save the image to SummaryPage
+          print('Picture saved to ${image.path}');
+        } on CameraException catch (_) {
+          // do something on error
+        }
+      },
+      child: const Icon(
+        CupertinoIcons.camera,
+        size: 30,
+      ));
   }
 
   @override

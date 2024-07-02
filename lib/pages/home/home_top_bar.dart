@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/summary/summary.dart';
+import 'package:james2024/pages/test_page.dart';
 
 class HomeTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {
@@ -27,6 +28,15 @@ class HomeTopBar extends StatelessWidget
               ),
             ),
             child: const Text("Summary Page"),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () => Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const TestPage()
+              ),
+            ),
+            child: const Text("Test Page"),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(

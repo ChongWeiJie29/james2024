@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/home/home.dart';
 import 'package:james2024/pages/scan/scan.dart';
+import 'package:james2024/pages/summary/summary_images.dart';
 
 class SummaryPage extends StatelessWidget {
   const SummaryPage({super.key});
@@ -17,10 +18,7 @@ class SummaryPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              "Summary Page",
-              style: TextStyle(color: CupertinoColors.white),
-            ),
+            const SummaryImages(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

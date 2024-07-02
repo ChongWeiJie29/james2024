@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:james2024/pages/scan/scan_camera_top_bar/scan_back_button.dart';
+import 'package:james2024/pages/commons/common_widgets.dart';
+import 'package:james2024/pages/summary/summary.dart';
+import 'package:james2024/pages/summary/summary_images.dart';
 
 class ScanTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {
@@ -14,13 +16,25 @@ class ScanTopBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoNavigationBar(
-      padding: EdgeInsetsDirectional.all(0),
-      leading: ScanBackButton(),
-      middle: Text(
+    return CupertinoNavigationBar(
+      padding: const EdgeInsetsDirectional.all(0),
+      leading: CommonWidgets.navBarLeadingButton(
+        context,
+        "Back",
+        () => Navigator.pop(context),
+      ),
+      middle: const Text(
         'Scanning',
         style: TextStyle(fontSize: 20),
       ),
+      trailing: CommonWidgets.navBarTrailingButton(
+        context,
+        'Done',
+        () => Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (context) => const SummaryPage()),
+        ),
+      )
     );
   }
 }
