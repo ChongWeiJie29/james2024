@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/scan/scan_common.dart';
 
 class ScanCameraStateButton extends StatefulWidget {
-  const ScanCameraStateButton(
-      {super.key,
-      required this.phoneAngleState,
-      required this.updatePhoneAngleState});
+  const ScanCameraStateButton({
+    super.key,
+    required this.phoneAngleState,
+    required this.updatePhoneAngleState,
+    required this.setIsSettingOverlay,
+  });
 
   final int phoneAngleState;
   final Function(int) updatePhoneAngleState;
+  final Function(bool) setIsSettingOverlay;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraStateButton();
@@ -27,30 +30,30 @@ class _ScanCameraStateButton extends State<ScanCameraStateButton> {
         color: CupertinoColors.systemBackground.resolveFrom(context),
         child: child,
       ),
-    );
+    ).whenComplete(() => widget.setIsSettingOverlay(false));
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      onPressed: () => _showDialog(
-        CupertinoPicker(
-          magnification: 1.22,
-          squeeze: 1.2,
-          useMagnifier: true,
-          itemExtent: 32,
-          scrollController: FixedExtentScrollController(
-            initialItem: widget.phoneAngleState,
+      onPressed: () {
+        widget.setIsSettingOverlay(true);
+        _showDialog(
+          CupertinoPicker(
+            itemExtent: 32,
+            scrollController: FixedExtentScrollController(
+              initialItem: widget.phoneAngleState,
+            ),
+            onSelectedItemChanged: (int selectedItem) {
+              widget.updatePhoneAngleState(selectedItem);
+            },
+            children: List<Widget>.generate(phoneAngles.length, (int index) {
+              return Center(child: Text(phoneAngles[index]));
+            }),
           ),
-          onSelectedItemChanged: (int selectedItem) {
-            widget.updatePhoneAngleState(selectedItem);
-          },
-          children: List<Widget>.generate(phoneAngles.length, (int index) {
-            return Center(child: Text(phoneAngles[index]));
-          }),
-        ),
-      ),
+        );
+      },
       child: Text(
         phoneAngles[widget.phoneAngleState],
         style: const TextStyle(
