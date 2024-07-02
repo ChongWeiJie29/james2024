@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 class ScanCameraOverlay extends StatefulWidget {
   const ScanCameraOverlay({
     super.key,
-    required this.padding,
     required this.phoneAngleState,
   });
 
-  final double padding;
   final int phoneAngleState;
 
   @override
