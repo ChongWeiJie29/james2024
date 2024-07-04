@@ -19,7 +19,6 @@ class _ScanCameraOverlay extends State<ScanCameraOverlay> {
   @override
   void initState() {
     super.initState();
-    calculatePadding();
   }
 
   calculatePadding() {
@@ -33,13 +32,13 @@ class _ScanCameraOverlay extends State<ScanCameraOverlay> {
       case 2:
       case 4:
         setState(() {
-          horizontalPadding = 200;
-          verticalPadding = 200;
+          verticalPadding = 175;
+          horizontalPadding = 175;
         });
       case 3:
       case 5:
         setState(() {
-          horizontalPadding = 200;
+          horizontalPadding = 175;
           verticalPadding = 100;
         });
     }

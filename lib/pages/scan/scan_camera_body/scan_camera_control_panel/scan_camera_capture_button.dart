@@ -1,5 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
+import 'package:provider/provider.dart';
 
 class ScanCameraCaptureButton extends StatefulWidget {
   const ScanCameraCaptureButton({
@@ -17,21 +19,25 @@ class ScanCameraCaptureButton extends StatefulWidget {
 
 class _ScanCameraCaptureButton extends State<ScanCameraCaptureButton> {
   Widget _cameraCaptureButton() {
-    return CupertinoButton(
-      onPressed: () async {
-        try {
-          await widget.initializeControllerFuture;
-          final image = await widget.controller.takePicture();
-          // TODO: Save the image to SummaryPage
-          print('Picture saved to ${image.path}');
-        } on CameraException catch (_) {
-          // do something on error
-        }
-      },
-      child: const Icon(
-        CupertinoIcons.camera,
-        size: 30,
-      ));
+    return Consumer<CapturedImagesNotifiers>(
+        builder: (context, capturedImagesNotifier, child) {
+      return CupertinoButton(
+          onPressed: () async {
+            try {
+              await widget.initializeControllerFuture;
+              final image = await widget.controller.takePicture();
+              capturedImagesNotifier.addCapturedImages(image);
+              // TODO: Save the image to SummaryPage
+              print('Picture saved to ${image.path}');
+            } on CameraException catch (_) {
+              // do something on error
+            }
+          },
+          child: const Icon(
+            CupertinoIcons.camera,
+            size: 30,
+          ));
+    });
   }
 
   @override

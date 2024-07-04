@@ -6,12 +6,10 @@ class ScanCameraStateButton extends StatefulWidget {
     super.key,
     required this.phoneAngleState,
     required this.updatePhoneAngleState,
-    required this.setIsSettingOverlay,
   });
 
   final int phoneAngleState;
   final Function(int) updatePhoneAngleState;
-  final Function(bool) setIsSettingOverlay;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraStateButton();
@@ -30,7 +28,7 @@ class _ScanCameraStateButton extends State<ScanCameraStateButton> {
         color: CupertinoColors.systemBackground.resolveFrom(context),
         child: child,
       ),
-    ).whenComplete(() => widget.setIsSettingOverlay(false));
+    );
   }
 
   @override
@@ -38,7 +36,6 @@ class _ScanCameraStateButton extends State<ScanCameraStateButton> {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       onPressed: () {
-        widget.setIsSettingOverlay(true);
         _showDialog(
           CupertinoPicker(
             itemExtent: 32,
