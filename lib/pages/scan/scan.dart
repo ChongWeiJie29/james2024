@@ -7,9 +7,12 @@ class ScanningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      navigationBar: ScanTopBar(),
-      child: ScanCameraBody(),
+    return const PopScope(
+      canPop: false,
+      child: CupertinoPageScaffold(
+        navigationBar: ScanTopBar(),
+        child: ScanCameraBody(),
+      ),
     );
   }
 }

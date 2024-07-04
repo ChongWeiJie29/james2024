@@ -21,20 +21,16 @@ class HomeTopBar extends StatelessWidget
         message: const Text("Select a page to jump to"),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
-            onPressed: () => Navigator.push(
+            onPressed: () => Navigator.pushNamed(
               context,
-              CupertinoPageRoute(
-                builder: (context) => const SummaryPage()
-              ),
+              '/summary',
             ),
             child: const Text("Summary Page"),
           ),
           CupertinoActionSheetAction(
-            onPressed: () => Navigator.push(
+            onPressed: () => Navigator.pushNamed(
               context,
-              CupertinoPageRoute(
-                builder: (context) => const TestPage()
-              ),
+              '/test',
             ),
             child: const Text("Test Page"),
           ),

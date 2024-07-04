@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/commons/common_widgets.dart';
-import 'package:james2024/pages/summary/summary.dart';
-import 'package:james2024/pages/summary/summary_images.dart';
 
 class ScanTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {
@@ -30,10 +28,7 @@ class ScanTopBar extends StatelessWidget
       trailing: CommonWidgets.navBarTrailingButton(
         context,
         'Done',
-        () => Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context) => const SummaryPage()),
-        ),
+        () => Navigator.pushNamed(context, '/summary'),
       )
     );
   }

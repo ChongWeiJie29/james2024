@@ -8,10 +8,7 @@ class HomeOpenCameraButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton.filled(
       onPressed: () {
-        Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context) => const ScanningPage()),
-        );
+        Navigator.pushNamed(context, '/scan',
       },
       child: const Text(
         'Open Camera',

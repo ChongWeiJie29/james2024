@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:james2024/pages/home/home.dart';
-import 'package:james2024/pages/scan/scan.dart';
 import 'package:james2024/pages/summary/summary_images.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -23,20 +21,11 @@ class SummaryPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CupertinoButton.filled(
-                  onPressed: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => const ScanningPage()
-                    ),
-                  ),
+                  onPressed: () => Navigator.of(context).pushReplacementNamed('/scan'),
                   child: const Text("Next Phone"),
                 ),
                 CupertinoButton.filled(
-                  onPressed: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(builder: (context) => const HomePage()),
-                    (r) => false
-                  ),
+                  onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
                   child: const Icon(CupertinoIcons.house_fill),
                 ),
               ],
