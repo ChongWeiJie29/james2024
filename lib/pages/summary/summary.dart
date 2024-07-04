@@ -1,4 +1,6 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:james2024/pages/summary/summary_control_panel.dart';
 import 'package:james2024/pages/summary/summary_images.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -6,6 +8,9 @@ class SummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<XFile> capturedImages =
+        ModalRoute.of(context)!.settings.arguments as List<XFile>;
+
     return PopScope(
       canPop: false,
       child: CupertinoPageScaffold(
@@ -16,24 +21,11 @@ class SummaryPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SummaryImages(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CupertinoButton.filled(
-                  onPressed: () => Navigator.of(context).pushReplacementNamed('/scan'),
-                  child: const Text("Next Phone"),
-                ),
-                CupertinoButton.filled(
-                  onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
-                  child: const Icon(CupertinoIcons.house_fill),
-                ),
-              ],
-            ),
+            SummaryImages(capturedImages: capturedImages),
+            const SummaryControlPanel(),
           ],
         ),
       ),
     );
   }
 }
-
