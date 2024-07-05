@@ -6,7 +6,14 @@ class CapturedImagesNotifiers extends ChangeNotifier {
 
   List<XFile> get capturedImages => _capturedImages;
 
-  void addCapturedImages(XFile capturedImage) {
-    _capturedImages.add(capturedImage);
+  void addCapturedImages(int index, XFile capturedImage) {
+    if (index > _capturedImages.length) {
+      return;
+    }
+    if (index == _capturedImages.length) {
+      _capturedImages.add(capturedImage);
+    } else {
+      _capturedImages[index] = capturedImage;
+    }
   }
 }

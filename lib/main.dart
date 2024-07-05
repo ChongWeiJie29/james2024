@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/camera_notifier.dart';
+import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:james2024/pages/home/home.dart';
 import 'package:james2024/pages/scan/scan.dart';
 import 'package:james2024/pages/summary/summary.dart';
@@ -14,7 +15,13 @@ Future<void> main() async {
   final CameraDescription camera = cameraList.firstWhere(
       (description) => description.lensDirection == CameraLensDirection.back);
 
-  runApp(MyApp(camera: camera));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => CameraNotifier()),
+      ChangeNotifierProvider(create: (context) => CapturedImagesNotifiers()),
+    ],
+    child: MyApp(camera: camera),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,17 +32,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
-    return ChangeNotifierProvider(
-        create: (context) => CameraNotifier(),
-        child: CupertinoApp(
+    return Consumer<CameraNotifier>(
+      builder: (context, cameraNotifier, child) {
+        cameraNotifier.setCamera(camera);
+        return CupertinoApp(
             debugShowCheckedModeBanner: false,
             theme: CupertinoThemeData(brightness: platformBrightness),
-            home: HomePage(camera: camera),
+            home: const HomePage(),
             routes: {
-              '/home': (context) => HomePage(camera: camera),
+              '/home': (context) => const HomePage(),
               '/scan': (context) => const ScanningPage(),
               '/summary': (context) => const SummaryPage(),
               '/test': (context) => const TestPage(),
-            }));
+            });
+      },
+    );
   }
 }

@@ -6,10 +6,14 @@ import 'package:provider/provider.dart';
 class ScanCameraCaptureButton extends StatefulWidget {
   const ScanCameraCaptureButton({
     super.key,
+    required this.phoneAngleState,
+    required this.updatePhoneAngleState,
     required this.initializeControllerFuture,
     required this.controller,
   });
 
+  final int phoneAngleState;
+  final Function(int) updatePhoneAngleState;
   final Future<void> initializeControllerFuture;
   final CameraController controller;
 
@@ -26,7 +30,9 @@ class _ScanCameraCaptureButton extends State<ScanCameraCaptureButton> {
             try {
               await widget.initializeControllerFuture;
               final image = await widget.controller.takePicture();
-              capturedImagesNotifier.addCapturedImages(image);
+              capturedImagesNotifier.addCapturedImages(
+                  widget.phoneAngleState, image);
+              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
               // TODO: Save the image to SummaryPage
               print('Picture saved to ${image.path}');
             } on CameraException catch (_) {

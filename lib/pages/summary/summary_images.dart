@@ -39,7 +39,7 @@ class _SummaryImagesState extends State<SummaryImages> {
         labels: 'assets/labels.txt',
         modelPath: 'assets/scratch100.tflite',
         modelVersion: "yolov8seg",
-        quantization: false,
+        quantization: true,
         numThreads: 1,
         useGpu: false);
   }

@@ -34,6 +34,8 @@ class ScanCameraMainBody extends StatelessWidget {
                   updatePhoneAngleState: updatePhoneAngle,
                 ),
                 ScanCameraCaptureButton(
+                  phoneAngleState: phoneAngleState,
+                  updatePhoneAngleState: updatePhoneAngle,
                   initializeControllerFuture: intializeControllerFuture,
                   controller: controller,
                 ),
