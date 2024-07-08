@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:provider/provider.dart';
 
