@@ -11,7 +11,7 @@ class SummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CapturedImagesNotifiers>(
         builder: (context, capturedImagesNotifiers, child) {
-      return PopScope(
+      return const PopScope(
         canPop: false,
         child: CupertinoPageScaffold(
           navigationBar: const CupertinoNavigationBar(
@@ -21,9 +21,8 @@ class SummaryPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SummaryImages(
-                  capturedImages: capturedImagesNotifiers.capturedImages),
-              const SummaryControlPanel(),
+              SummaryImages(),
+              SummaryControlPanel(),
             ],
           ),
         ),

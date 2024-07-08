@@ -14,13 +14,6 @@ class ScanCameraBody extends StatefulWidget {
 class _ScanCameraBody extends State<ScanCameraBody> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  int _phoneAngleState = 0;
-
-  void updatePhoneAngle(int newState) {
-    setState(() {
-      _phoneAngleState = newState;
-    });
-  }
 
   @override
   void initState() {
@@ -39,7 +32,6 @@ class _ScanCameraBody extends State<ScanCameraBody> {
 
   @override
   void dispose() {
-    _controller.stopImageStream();
     _controller.dispose();
     super.dispose();
   }
@@ -51,10 +43,9 @@ class _ScanCameraBody extends State<ScanCameraBody> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return ScanCameraMainBody(
-                controller: _controller,
-                intializeControllerFuture: _initializeControllerFuture,
-                phoneAngleState: _phoneAngleState,
-                updatePhoneAngle: updatePhoneAngle);
+              controller: _controller,
+              intializeControllerFuture: _initializeControllerFuture,
+            );
           } else {
             return const Center(child: CupertinoActivityIndicator());
           }

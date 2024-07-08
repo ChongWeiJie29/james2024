@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-class ScanCameraCaptureButton extends StatefulWidget {
+class ScanCameraCaptureButton extends StatelessWidget {
   const ScanCameraCaptureButton({
     super.key,
     required this.phoneAngleState,
@@ -17,22 +21,27 @@ class ScanCameraCaptureButton extends StatefulWidget {
   final Future<void> initializeControllerFuture;
   final CameraController controller;
 
-  @override
-  State<StatefulWidget> createState() => _ScanCameraCaptureButton();
-}
-
-class _ScanCameraCaptureButton extends State<ScanCameraCaptureButton> {
   Widget _cameraCaptureButton() {
     return Consumer<CapturedImagesNotifiers>(
         builder: (context, capturedImagesNotifier, child) {
       return CupertinoButton(
           onPressed: () async {
             try {
-              await widget.initializeControllerFuture;
-              final image = await widget.controller.takePicture();
-              capturedImagesNotifier.addCapturedImages(
-                  widget.phoneAngleState, image);
-              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
+              await initializeControllerFuture;
+              final image = await controller.takePicture();
+
+              // temp code for testing with asset images
+              final byteData =
+                  await rootBundle.load('assets/images/20240619_161942.jpg');
+              final file =
+                  File('${(await getTemporaryDirectory()).path}/image.png');
+              await file.writeAsBytes(byteData.buffer
+                  .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+              XFile xFile = XFile(file.path);
+              capturedImagesNotifier.addCapturedImages(phoneAngleState, xFile);
+
+              // capturedImagesNotifier.addCapturedImages(phoneAngleState, image);
+              updatePhoneAngleState(phoneAngleState + 1);
               // TODO: Save the image to SummaryPage
               print('Picture saved to ${image.path}');
             } on CameraException catch (_) {

@@ -1,114 +1,49 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_vision/flutter_vision.dart';
+import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
+import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
+import 'package:james2024/pages/summary/summary_card.dart';
+import 'package:provider/provider.dart';
 
-class SummaryImages extends StatefulWidget {
-  const SummaryImages({super.key, required this.capturedImages});
+class SummaryImages extends StatelessWidget {
+  const SummaryImages({super.key});
 
-  final List<XFile> capturedImages;
+  // Flutter vision package. Temporary not in use as its rly L.
+  // final FlutterVision _vision = FlutterVision();
 
-  @override
-  State<SummaryImages> createState() => _SummaryImagesState();
-}
-
-class _SummaryImagesState extends State<SummaryImages> {
-  List<XFile> images = [];
-  final FlutterVision _vision = FlutterVision();
-  late final List<Map<String, dynamic>> capturedFiles;
-  num imageWidth = 0;
-  num imageHeight = 0;
-
-  void getCapturedFiles() {
-    capturedFiles = widget.capturedImages.map((xfile) {
-      return {
-        "file": File(xfile.path),
-        "class": "",
-        "boxLeft": 0.0,
-        "boxTop": 0.0,
-        "boxRight": 0.0,
-        "boxBottom": 0.0
-      };
-    }).toList();
-  }
-
-  Future<void> initModel() async {
-    await _vision.loadYoloModel(
-        labels: 'assets/labels.txt',
-        modelPath: 'assets/scratch100.tflite',
-        modelVersion: "yolov8seg",
-        quantization: true,
-        numThreads: 1,
-        useGpu: false);
-  }
-
-  Future<void> processImage() async {
-    for (Map<String, dynamic> capturedFile in capturedFiles) {
-      Uint8List byte = await capturedFile["file"].readAsBytes();
-      final image = await decodeImageFromList(byte);
-      imageWidth = image.width;
-      imageHeight = image.height;
-      final results = await _vision.yoloOnImage(
-          bytesList: byte,
-          imageHeight: image.height,
-          imageWidth: image.width,
-          iouThreshold: 0.4,
-          classThreshold: 0.5);
-      for (Map<String, dynamic> result in results) {
-        capturedFile["class"] = result["tag"];
-        capturedFile["boxLeft"] = result["box"][0];
-        capturedFile["boxTop"] = result["box"][1];
-        capturedFile["boxRight"] = result["box"][2];
-        capturedFile["boxBottom"] = result["box"][3];
-      }
-    }
-    print(capturedFiles); // Temporary for debugging to see detected results.
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCapturedFiles();
-    initModel();
-    processImage();
-  }
-
-  @override
-  void dispose() {
-    _vision.closeYoloModel();
-    super.dispose();
-  }
+  // Future<void> initModel() async {
+  //   await _vision.loadYoloModel(
+  //       labels: 'assets/labels.txt',
+  //       modelPath: 'assets/scratch100.tflite',
+  //       modelVersion: "yolov8seg",
+  //       quantization: false,
+  //       numThreads: 1,
+  //       useGpu: false);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    double parentWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-        width: imageWidth.toDouble(),
-        height: imageHeight.toDouble(),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.capturedImages.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: parentWidth,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.file(
-                      capturedFiles[index]["file"],
-                      fit: BoxFit.contain,
-                    ),
-                    Text(capturedFiles[index]["class"]),
-                  ],
-                ),
-              ),
-            );
-          },
-        ));
+    return Consumer2<CapturedImagesNotifiers, DecodedImagesNotifier>(
+      builder:
+          (context, capturedImagesNotifiers, decodedImagesNotifier, child) {
+        return SizedBox(
+          height: 720,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(
+              width: 20,
+            ),
+            itemCount: capturedImagesNotifiers.capturedImages.length,
+            itemBuilder: (context, index) {
+              return SummaryCard(
+                  index: index,
+                  // model: _vision,
+                  capturedImage: capturedImagesNotifiers.capturedImages[index],
+                  decodedImage: decodedImagesNotifier.decodedImages[index]);
+            },
+          ),
+        );
+      },
+    );
   }
 }

@@ -40,6 +40,9 @@ dependencies:
   path: ^1.9.0
   flutter_vision: ^1.1.4
   provider: ^5.0.0
+  http: ^1.2.1
+  http_parser: ^4.0.2
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +65,7 @@ flutter:
     - assets/labels.txt
     - assets/scratch100.tflite
     - assets/images/
+    - .env
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

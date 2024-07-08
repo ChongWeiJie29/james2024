@@ -6,7 +6,7 @@ class SummaryControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         CupertinoButton.filled(
           onPressed: () => Navigator.of(context).pushReplacementNamed('/scan'),

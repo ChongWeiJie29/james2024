@@ -4,18 +4,29 @@ import 'package:james2024/pages/scan/scan_camera_body/scan_camera_control_panel/
 import 'package:james2024/pages/scan/scan_camera_body/scan_camera_control_panel/scan_camera_state_button.dart';
 import 'package:james2024/pages/scan/scan_camera_body/scan_camera_window/scan_camera_window.dart';
 
-class ScanCameraMainBody extends StatelessWidget {
-  const ScanCameraMainBody(
-      {super.key,
-      required this.controller,
-      required this.intializeControllerFuture,
-      required this.phoneAngleState,
-      required this.updatePhoneAngle});
+class ScanCameraMainBody extends StatefulWidget {
+  const ScanCameraMainBody({
+    super.key,
+    required this.controller,
+    required this.intializeControllerFuture,
+  });
 
   final CameraController controller;
   final Future<void> intializeControllerFuture;
-  final int phoneAngleState;
-  final Function(int) updatePhoneAngle;
+
+  @override
+  State<StatefulWidget> createState() => _ScanCameraMainBody();
+}
+
+class _ScanCameraMainBody extends State<ScanCameraMainBody> {
+  int _phoneAngleState = 0;
+
+  void updatePhoneAngle(int newState) {
+    setState(() {
+      if (newState > 5) return;
+      _phoneAngleState = newState;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +34,21 @@ class ScanCameraMainBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ScanCameraWindow(
-            controller: controller,
-            phoneAngleState: phoneAngleState,
+            controller: widget.controller,
+            phoneAngleState: _phoneAngleState,
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ScanCameraStateButton(
-                  phoneAngleState: phoneAngleState,
+                  phoneAngleState: _phoneAngleState,
                   updatePhoneAngleState: updatePhoneAngle,
                 ),
                 ScanCameraCaptureButton(
-                  phoneAngleState: phoneAngleState,
+                  phoneAngleState: _phoneAngleState,
                   updatePhoneAngleState: updatePhoneAngle,
-                  initializeControllerFuture: intializeControllerFuture,
-                  controller: controller,
+                  initializeControllerFuture: widget.intializeControllerFuture,
+                  controller: widget.controller,
                 ),
               ]),
         ]);

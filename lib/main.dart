@@ -2,13 +2,16 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/camera_notifier.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
+import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:james2024/pages/home/home.dart';
 import 'package:james2024/pages/scan/scan.dart';
 import 'package:james2024/pages/summary/summary.dart';
 import 'package:james2024/pages/test_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
 
   final cameraList = await availableCameras();
@@ -19,6 +22,7 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => CameraNotifier()),
       ChangeNotifierProvider(create: (context) => CapturedImagesNotifiers()),
+      ChangeNotifierProvider(create: (context) => DecodedImagesNotifier()),
     ],
     child: MyApp(camera: camera),
   ));
