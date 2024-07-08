@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:james2024/pages/commons/common_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ScanTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {
@@ -22,17 +24,20 @@ class ScanTopBar extends StatelessWidget
   // Prepare and send list of xfiles to python flask backend
   sendReq(List<XFile> capturedImages,
       DecodedImagesNotifier decodedImagesNotifier) async {
+    var apiEndpoint = dotenv.env['API_ENDPOINT'];
     var request = http.MultipartRequest(
       'POST',
       // 10.0.2.2 on the emulator reroutes to the computer's
       // local host - 127.0.0.1.
-      Uri.parse('http://10.0.2.2:5000/detect'),
+      Uri.parse('$apiEndpoint/detect'),
     );
 
     for (XFile capturedImage in capturedImages) {
+      final fixedImagePath =
+          await FlutterExifRotation.rotateImage(path: capturedImage.path);
       request.files.add(await http.MultipartFile.fromPath(
         'images',
-        capturedImage.path,
+        fixedImagePath.path,
         contentType: MediaType('image', 'jpg'),
       ));
     }
