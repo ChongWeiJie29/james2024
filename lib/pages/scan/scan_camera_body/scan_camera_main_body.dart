@@ -37,12 +37,15 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
             controller: widget.controller,
             phoneAngleState: _phoneAngleState,
           ),
-          Row(
+          Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ScanCameraStateButton(
-                  phoneAngleState: _phoneAngleState,
-                  updatePhoneAngleState: updatePhoneAngle,
+                Container(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  child: ScanCameraStateButton(
+                    phoneAngleState: _phoneAngleState,
+                    updatePhoneAngleState: updatePhoneAngle,
+                  ),
                 ),
                 ScanCameraCaptureButton(
                   phoneAngleState: _phoneAngleState,

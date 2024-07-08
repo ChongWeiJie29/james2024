@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-class ScanCameraCaptureButton extends StatelessWidget {
+class ScanCameraCaptureButton extends StatefulWidget {
   const ScanCameraCaptureButton({
     super.key,
     required this.phoneAngleState,
@@ -21,49 +19,69 @@ class ScanCameraCaptureButton extends StatelessWidget {
   final Future<void> initializeControllerFuture;
   final CameraController controller;
 
+  @override
+  State<ScanCameraCaptureButton> createState() => _ScanCameraCaptureButtonState();
+}
+
+class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
+  Color _buttonColor = Colors.transparent;
+
+  int get _phoneAngleState => widget.phoneAngleState;
+
   Widget _cameraCaptureButton() {
     return Consumer<CapturedImagesNotifiers>(
         builder: (context, capturedImagesNotifier, child) {
-      return CupertinoButton(
+      return Listener(
+        onPointerDown: (_) {
+          setState(() {
+            _buttonColor = CupertinoColors.systemGrey2;
+          });
+        },
+        onPointerCancel: (_) {
+          setState(() {
+            _buttonColor = Colors.transparent;
+          });
+        },
+        onPointerUp: (_) {
+          setState(() {
+            _buttonColor = Colors.transparent;
+          });
+        },
+        child: CupertinoButton(
+          pressedOpacity: 1,
           onPressed: () async {
             try {
-              await initializeControllerFuture;
-              final image = await controller.takePicture();
-
-              // temp code for testing with asset images
-              final byteData =
-                  await rootBundle.load('assets/images/20240619_161942.jpg');
-              final file =
-                  File('${(await getTemporaryDirectory()).path}/image.png');
-              await file.writeAsBytes(byteData.buffer
-                  .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-              XFile xFile = XFile(file.path);
-              capturedImagesNotifier.addCapturedImages(phoneAngleState, xFile);
-
-              // capturedImagesNotifier.addCapturedImages(phoneAngleState, image);
-              updatePhoneAngleState(phoneAngleState + 1);
-              // TODO: Save the image to SummaryPage
-              print('Picture saved to ${image.path}');
+              await widget.initializeControllerFuture;
+              final image = await widget.controller.takePicture();
+              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
+              capturedImagesNotifier.addCapturedImages(_phoneAngleState, image);
             } on CameraException catch (_) {
               // do something on error
             }
           },
           child: const Icon(
             CupertinoIcons.camera,
-            size: 30,
-          ));
+            size: 40,
+          ),
+        ),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: CupertinoColors.activeBlue,
-              width: 2,
-            )),
-        child: _cameraCaptureButton());
+      height: 80,
+      width: 80,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: _buttonColor,
+        border: Border.all(
+          color: CupertinoColors.systemBlue,
+          width: 2,
+        ),
+      ),
+      child: _cameraCaptureButton(),
+    );
   }
 }

@@ -1,8 +1,8 @@
 const List<String> phoneAngles = <String>[
-  'front',
-  'back',
-  'top',
-  'right',
-  'bottom',
-  'left',
+  'Front',
+  'Back',
+  'Top',
+  'Right',
+  'Bottom',
+  'Left',
 ];

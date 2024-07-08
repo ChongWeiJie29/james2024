@@ -59,7 +59,7 @@ class ScanTopBar extends StatelessWidget
             onPressed: () => Navigator.pop(context),
           ),
           middle: const Text(
-            'Scanning',
+            'Scan',
             style: TextStyle(fontSize: 20),
           ),
           trailing: CommonWidgets.navBarTrailingButton(
