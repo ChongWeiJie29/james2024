@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:james2024/pages/summary/summary_control_panel.dart';
 import 'package:james2024/pages/summary/summary_images.dart';
+import 'package:james2024/pages/summary/summary_results.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -14,14 +15,18 @@ class SummaryPage extends StatelessWidget {
       return const PopScope(
         canPop: false,
         child: CupertinoPageScaffold(
-          navigationBar: const CupertinoNavigationBar(
+          navigationBar: CupertinoNavigationBar(
             automaticallyImplyLeading: false,
             middle: Text("Summary"),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 100),
               SummaryImages(),
+              SizedBox(height: 60),
+              SummaryResults(),
+              SizedBox(height: 20),
               SummaryControlPanel(),
             ],
           ),

@@ -26,23 +26,61 @@ class SummaryImages extends StatelessWidget {
       builder:
           (context, capturedImagesNotifiers, decodedImagesNotifier, child) {
         return SizedBox(
-          height: 720,
-          child: ListView.separated(
+          height: 500,
+          child: CustomScrollView(
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              width: 20,
-            ),
-            itemCount: capturedImagesNotifiers.capturedImages.length,
-            itemBuilder: (context, index) {
-              return SummaryCard(
-                  index: index,
-                  // model: _vision,
-                  capturedImage: capturedImagesNotifiers.capturedImages[index],
-                  decodedImage: decodedImagesNotifier.decodedImages[index]);
-            },
+            slivers: <Widget>[
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int i) {
+                    return Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: CupertinoColors.white,
+                          width: 1,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: SummaryCard(
+                            index: i,
+                            // model: _vision,
+                            capturedImage:
+                                capturedImagesNotifiers.capturedImages[i],
+                            decodedImage:
+                                decodedImagesNotifier.decodedImages[i]),
+                      ),
+                    );
+                  },
+                  childCount: capturedImagesNotifiers.capturedImages.length,
+                ),
+              ),
+            ],
           ),
         );
+        // return SizedBox(
+        //   height: 720,
+        //   child: ListView.separated(
+        //     scrollDirection: Axis.horizontal,
+        //     separatorBuilder: (BuildContext context, int index) =>
+        //     const SizedBox(
+        //       width: 20,
+        //     ),
+        //     itemCount: capturedImagesNotifiers.capturedImages.length,
+        //     itemBuilder: (context, index) {
+        //       return SummaryCard(
+        //         index: index,
+        //         // model: _vision,
+        //         capturedImage: capturedImagesNotifiers.capturedImages[index],
+        //         decodedImage: decodedImagesNotifier.decodedImages[index]
+        //       );
+        //     },
+        //   ),
+        // );
       },
     );
   }

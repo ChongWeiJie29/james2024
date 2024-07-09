@@ -6,15 +6,26 @@ class SummaryControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        CupertinoButton.filled(
-          onPressed: () => Navigator.of(context).pushReplacementNamed('/scan'),
-          child: const Text("Next Phone"),
+        SizedBox(
+          height: 50,
+          child: CupertinoButton.filled(
+            onPressed: () => Navigator.of(context).pushReplacementNamed('/scan'),
+            padding: const EdgeInsets.all(10),
+            child: const Text('Next Phone'),
+          ),
         ),
-        CupertinoButton.filled(
-          onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
-          child: const Icon(CupertinoIcons.house_fill),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: 50,
+          height: 50,
+          child: CupertinoButton.filled(
+            alignment: Alignment.center,
+            onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
+            padding: EdgeInsets.zero,
+            child: const Icon(CupertinoIcons.house_fill),
+          ),
         ),
       ],
     );
