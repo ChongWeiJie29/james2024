@@ -1,6 +1,9 @@
 # james2024
 
-A new Flutter project.
+JAMES stands for Just Another Mobile Evaluation System, and serves to seamlessly eliminate the
+subjectivity of human evaluations. By using this app, simply capture the mobile phone at 6 different
+angles to get a final grade for the phone.  
+We sprinkled in some AI ✨ to do the evaluation for us.
 
 ## Getting Started
 
