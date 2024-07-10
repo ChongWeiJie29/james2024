@@ -23,7 +23,7 @@ class _ScanCameraBody extends State<ScanCameraBody> {
 
   void _setUpCamera() async {
     try {
-      _controller = CameraController(widget.camera, ResolutionPreset.medium);
+      _controller = CameraController(widget.camera, ResolutionPreset.max);
       _initializeControllerFuture = _controller.initialize();
     } on CameraException catch (_) {
       // do something on error

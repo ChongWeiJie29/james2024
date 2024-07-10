@@ -19,16 +19,15 @@ class SummaryPage extends StatelessWidget {
             automaticallyImplyLeading: false,
             middle: Text("Summary"),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 100),
-              SummaryImages(),
-              SizedBox(height: 60),
-              SummaryResults(),
-              SizedBox(height: 20),
-              SummaryControlPanel(),
-            ],
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SummaryImages(),
+                SummaryResults(),
+                SummaryControlPanel(),
+              ],
+            ),
           ),
         ),
       );
