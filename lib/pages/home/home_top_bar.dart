@@ -18,19 +18,26 @@ class HomeTopBar extends StatelessWidget
         title: const Text("Main Menu"),
         message: const Text("Select a page to jump to"),
         actions: <CupertinoActionSheetAction>[
+          // CupertinoActionSheetAction(
+          //   onPressed: () => Navigator.pushNamed(
+          //     context,
+          //     '/summary',
+          //   ),
+          //   child: const Text("Summary Page"),
+          // ),
+          // CupertinoActionSheetAction(
+          //   onPressed: () => Navigator.pushNamed(
+          //     context,
+          //     '/test',
+          //   ),
+          //   child: const Text("Test Page"),
+          // ),
           CupertinoActionSheetAction(
             onPressed: () => Navigator.pushNamed(
               context,
-              '/summary',
+              '/guide',
             ),
-            child: const Text("Summary Page"),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () => Navigator.pushNamed(
-              context,
-              '/test',
-            ),
-            child: const Text("Test Page"),
+            child: const Text("User Guide"),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(

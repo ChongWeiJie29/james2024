@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/camera_notifier.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
+import 'package:james2024/pages/guide/user_guide.dart';
 import 'package:james2024/pages/home/home.dart';
 import 'package:james2024/pages/scan/scan.dart';
 import 'package:james2024/pages/summary/summary.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
             '/scan': (context) => const ScanningPage(),
             '/summary': (context) => const SummaryPage(),
             '/test': (context) => const TestPage(),
+            '/guide': (context) => const UserGuide(),
           });
       },
     );
