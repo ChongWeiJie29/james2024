@@ -48,18 +48,18 @@ class _SummaryCard extends State<SummaryCard> {
   //   });
   // }
 
-  List<Widget> displayBoxes(Size screen, File imageFile) {
+  List<Widget> displayBoxes(BoxConstraints screen, File imageFile) {
     if (widget.decodedImage.isEmpty) return [];
 
     Color colorPick = const Color.fromARGB(255, 50, 233, 30);
     return widget.decodedImage.map((result) {
-      final factorX = screen.width / result["imageWidth"];
-      final factorY = screen.height / result["imageHeight"];
+      final factor = 400 / result["imageHeight"];
+
       return Positioned(
-        left: result["bbox"][0].toDouble() * factorX,
-        top: result["bbox"][1].toDouble() * factorY,
-        width: (result["bbox"][2] - result["bbox"][0]).toDouble() * factorX,
-        height: (result["bbox"][3] - result["bbox"][1]).toDouble() * factorY,
+        left: result["bbox"][0].toDouble() * factor,
+        top: result["bbox"][1].toDouble() * factor,
+        width: (result["bbox"][2] - result["bbox"][0]).toDouble() * factor,
+        height: (result["bbox"][3] - result["bbox"][1]).toDouble() * factor,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -80,8 +80,19 @@ class _SummaryCard extends State<SummaryCard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Stack(
-        children: [Image.file(imageFile), ...displayBoxes(size, imageFile)]);
+    return LayoutBuilder (
+      builder: (context, constraints) => SizedBox(
+        width: constraints.maxWidth,
+        height: constraints.maxHeight,
+        child: Center (
+          child: Stack(
+            children: [
+              Image.file(imageFile),
+              ...displayBoxes(constraints, imageFile)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
