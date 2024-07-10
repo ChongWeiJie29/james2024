@@ -7,18 +7,7 @@ import 'package:provider/provider.dart';
 class SummaryImages extends StatelessWidget {
   const SummaryImages({super.key});
 
-  // Flutter vision package. Temporary not in use as its rly L.
-  // final FlutterVision _vision = FlutterVision();
-
-  // Future<void> initModel() async {
-  //   await _vision.loadYoloModel(
-  //       labels: 'assets/labels.txt',
-  //       modelPath: 'assets/scratch100.tflite',
-  //       modelVersion: "yolov8seg",
-  //       quantization: false,
-  //       numThreads: 1,
-  //       useGpu: false);
-  // }
+  final double cellHeight = 400;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +15,7 @@ class SummaryImages extends StatelessWidget {
       builder:
           (context, capturedImagesNotifiers, decodedImagesNotifier, child) {
         return SizedBox(
-          height: 400,
+          height: cellHeight,
           child: CustomScrollView(
             scrollDirection: Axis.horizontal,
             slivers: <Widget>[
@@ -44,12 +33,14 @@ class SummaryImages extends StatelessWidget {
                         ),
                       ),
                       child: SummaryCard(
-                          index: i,
-                          // model: _vision,
-                          capturedImage:
-                              capturedImagesNotifiers.capturedImages[i],
-                          decodedImage:
-                              decodedImagesNotifier.decodedImages[i]),
+                        index: i,
+                        // model: _vision,
+                        capturedImage:
+                            capturedImagesNotifiers.capturedImages[i],
+                        decodedImage:
+                            decodedImagesNotifier.decodedImages[i],
+                        parentHeight: cellHeight,
+                      ),
                     );
                   },
                   childCount: capturedImagesNotifiers.capturedImages.length,
@@ -58,25 +49,6 @@ class SummaryImages extends StatelessWidget {
             ],
           ),
         );
-        // return SizedBox(
-        //   height: 720,
-        //   child: ListView.separated(
-        //     scrollDirection: Axis.horizontal,
-        //     separatorBuilder: (BuildContext context, int index) =>
-        //     const SizedBox(
-        //       width: 20,
-        //     ),
-        //     itemCount: capturedImagesNotifiers.capturedImages.length,
-        //     itemBuilder: (context, index) {
-        //       return SummaryCard(
-        //         index: index,
-        //         // model: _vision,
-        //         capturedImage: capturedImagesNotifiers.capturedImages[index],
-        //         decodedImage: decodedImagesNotifier.decodedImages[index]
-        //       );
-        //     },
-        //   ),
-        // );
       },
     );
   }

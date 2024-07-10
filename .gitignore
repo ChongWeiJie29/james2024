@@ -6,6 +6,7 @@
 .DS_Store
 .atom/
 .buildlog/
+.env
 .history
 .svn/
 migrate_working_dir/
@@ -32,7 +33,6 @@ assets/scratch100.tflite
 .pub-cache/
 .pub/
 /build/
-.env/
 
 # Symbolication related
 app.*.symbols

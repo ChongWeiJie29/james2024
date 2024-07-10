@@ -40,15 +40,15 @@ class MyApp extends StatelessWidget {
       builder: (context, cameraNotifier, child) {
         cameraNotifier.setCamera(camera);
         return CupertinoApp(
-            debugShowCheckedModeBanner: false,
-            theme: CupertinoThemeData(brightness: platformBrightness),
-            home: const HomePage(),
-            routes: {
-              '/home': (context) => const HomePage(),
-              '/scan': (context) => const ScanningPage(),
-              '/summary': (context) => const SummaryPage(),
-              '/test': (context) => const TestPage(),
-            });
+          debugShowCheckedModeBanner: false,
+          theme: CupertinoThemeData(brightness: platformBrightness),
+          home: const HomePage(),
+          routes: {
+            '/home': (context) => const HomePage(),
+            '/scan': (context) => const ScanningPage(),
+            '/summary': (context) => const SummaryPage(),
+            '/test': (context) => const TestPage(),
+          });
       },
     );
   }

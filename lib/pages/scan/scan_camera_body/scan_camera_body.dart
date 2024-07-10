@@ -44,7 +44,7 @@ class _ScanCameraBody extends State<ScanCameraBody> {
           if (snapshot.connectionState == ConnectionState.done) {
             return ScanCameraMainBody(
               controller: _controller,
-              intializeControllerFuture: _initializeControllerFuture,
+              initializeControllerFuture: _initializeControllerFuture,
             );
           } else {
             return const Center(child: CupertinoActivityIndicator());

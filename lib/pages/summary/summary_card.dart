@@ -3,17 +3,18 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 
 class SummaryCard extends StatefulWidget {
-  const SummaryCard(
-      {super.key,
-      required this.index,
-      // required this.model,
-      required this.capturedImage,
-      required this.decodedImage});
+  const SummaryCard({
+    super.key,
+    required this.index,
+    required this.capturedImage,
+    required this.decodedImage,
+    required this.parentHeight,
+  });
 
   final int index;
-  // final FlutterVision model;
   final XFile capturedImage;
   final List<dynamic> decodedImage;
+  final double parentHeight;
 
   @override
   State<StatefulWidget> createState() => _SummaryCard();
@@ -21,39 +22,20 @@ class SummaryCard extends StatefulWidget {
 
 class _SummaryCard extends State<SummaryCard> {
   late final File imageFile;
-  // List<Map<String, dynamic>> results = [];
+  get _parentHeight => widget.parentHeight;
 
   @override
   void initState() {
     super.initState();
     imageFile = File(widget.capturedImage.path);
-    // detect();
   }
-
-  // void detect() async {
-  //   Uint8List byte = await imageFile.readAsBytes();
-  //   final image = await decodeImageFromList(byte);
-  //   imageHeight = image.height;
-  //   imageWidth = image.width;
-  //   final result = await widget.model.yoloOnImage(
-  //       bytesList: byte,
-  //       imageHeight: image.height,
-  //       imageWidth: image.width,
-  //       iouThreshold: 0.8,
-  //       confThreshold: 0.8,
-  //       classThreshold: 0.5);
-  //   print(result);
-  //   setState(() {
-  //     results = result;
-  //   });
-  // }
 
   List<Widget> displayBoxes(BoxConstraints screen, File imageFile) {
     if (widget.decodedImage.isEmpty) return [];
 
     Color colorPick = const Color.fromARGB(255, 50, 233, 30);
     return widget.decodedImage.map((result) {
-      final factor = 400 / result["imageHeight"];
+      final factor = _parentHeight / result["imageHeight"];
 
       return Positioned(
         left: result["bbox"][0].toDouble() * factor,

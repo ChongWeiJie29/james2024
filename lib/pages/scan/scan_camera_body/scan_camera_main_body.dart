@@ -8,11 +8,11 @@ class ScanCameraMainBody extends StatefulWidget {
   const ScanCameraMainBody({
     super.key,
     required this.controller,
-    required this.intializeControllerFuture,
+    required this.initializeControllerFuture,
   });
 
   final CameraController controller;
-  final Future<void> intializeControllerFuture;
+  final Future<void> initializeControllerFuture;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraMainBody();
@@ -31,29 +31,31 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          ScanCameraWindow(
-            controller: widget.controller,
-            phoneAngleState: _phoneAngleState,
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(bottom: 15),
-                  child: ScanCameraStateButton(
-                    phoneAngleState: _phoneAngleState,
-                    updatePhoneAngleState: updatePhoneAngle,
-                  ),
-                ),
-                ScanCameraCaptureButton(
-                  phoneAngleState: _phoneAngleState,
-                  updatePhoneAngleState: updatePhoneAngle,
-                  initializeControllerFuture: widget.intializeControllerFuture,
-                  controller: widget.controller,
-                ),
-              ]),
-        ]);
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        ScanCameraWindow(
+          controller: widget.controller,
+          phoneAngleState: _phoneAngleState,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: ScanCameraStateButton(
+                phoneAngleState: _phoneAngleState,
+                updatePhoneAngleState: updatePhoneAngle,
+              ),
+            ),
+            ScanCameraCaptureButton(
+              phoneAngleState: _phoneAngleState,
+              updatePhoneAngleState: updatePhoneAngle,
+              initializeControllerFuture: widget.initializeControllerFuture,
+              controller: widget.controller,
+            ),
+          ]
+        ),
+      ]
+    );
   }
 }
