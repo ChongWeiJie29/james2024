@@ -34,11 +34,9 @@ class SummaryImages extends StatelessWidget {
                       ),
                       child: SummaryCard(
                         index: i,
-                        // model: _vision,
                         capturedImage:
                             capturedImagesNotifiers.capturedImages[i],
-                        decodedImage:
-                            decodedImagesNotifier.decodedImages[i],
+                        decodedImage: decodedImagesNotifier.decodedImages[i],
                         parentHeight: cellHeight,
                       ),
                     );

@@ -21,14 +21,11 @@ class ScanTopBar extends StatelessWidget
   @override
   bool shouldFullyObstruct(BuildContext context) => true;
 
-  // Prepare and send list of xfiles to python flask backend
   sendReq(List<XFile> capturedImages,
       DecodedImagesNotifier decodedImagesNotifier) async {
     var apiEndpoint = dotenv.env['API_ENDPOINT'];
     var request = http.MultipartRequest(
       'POST',
-      // 10.0.2.2 on the emulator reroutes to the computer's
-      // local host - 127.0.0.1.
       Uri.parse('$apiEndpoint/detect'),
     );
 
