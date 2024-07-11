@@ -52,8 +52,8 @@ class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
             try {
               await widget.initializeControllerFuture;
               final image = await widget.controller.takePicture();
-              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
               capturedImagesNotifier.addCapturedImages(_phoneAngleState, image);
+              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
             } on CameraException catch (_) {
               // do something on error
             }

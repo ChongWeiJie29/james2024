@@ -31,30 +31,24 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         ScanCameraWindow(
           controller: widget.controller,
           phoneAngleState: _phoneAngleState,
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: ScanCameraStateButton(
-                phoneAngleState: _phoneAngleState,
-                updatePhoneAngleState: updatePhoneAngle,
-              ),
-            ),
-            ScanCameraCaptureButton(
-              phoneAngleState: _phoneAngleState,
-              updatePhoneAngleState: updatePhoneAngle,
-              initializeControllerFuture: widget.initializeControllerFuture,
-              controller: widget.controller,
-            ),
-          ]
+        ScanCameraStateButton(
+          phoneAngleState: _phoneAngleState,
+          updatePhoneAngleState: updatePhoneAngle,
         ),
+        const SizedBox(height: 100),
+        ScanCameraCaptureButton(
+          phoneAngleState: _phoneAngleState,
+          updatePhoneAngleState: updatePhoneAngle,
+          initializeControllerFuture: widget.initializeControllerFuture,
+          controller: widget.controller,
+        ),
+        const SizedBox(height: 10),
       ]
     );
   }

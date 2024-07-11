@@ -16,47 +16,25 @@ class ScanCameraStateButton extends StatefulWidget {
 }
 
 class _ScanCameraStateButton extends State<ScanCameraStateButton> {
-  void _showDialog(Widget child) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => Container(
-        height: 216,
-        padding: const EdgeInsets.only(top: 6.0),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        child: child,
-      ),
-    );
-  }
+  final Map<String, int> _angleToIndex = {
+    for (String angle in phoneAngles) angle : phoneAngles.indexOf(angle)
+  };
+  int get _phoneAngleState => widget.phoneAngleState;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: () {
-        _showDialog(
-          CupertinoPicker(
-            itemExtent: 32,
-            scrollController: FixedExtentScrollController(
-              initialItem: widget.phoneAngleState,
-            ),
-            onSelectedItemChanged: (int selectedItem) {
-              widget.updatePhoneAngleState(selectedItem);
-            },
-            children: List<Widget>.generate(phoneAngles.length, (int index) {
-              return Center(child: Text(phoneAngles[index]));
-            }),
-          ),
-        );
+    return CupertinoSlidingSegmentedControl(
+      backgroundColor: CupertinoColors.systemBackground.resolveFrom(context),
+      thumbColor: CupertinoColors.systemGrey2,
+      groupValue: phoneAngles[_phoneAngleState],
+      children: <String, Text>{
+        for (String angle in phoneAngles) angle : Text(angle)
       },
-      child: Text(
-        phoneAngles[widget.phoneAngleState],
-        style: const TextStyle(
-          fontSize: 22.0,
-        ),
-      ),
+      onValueChanged: (String? newValue) {
+        if (newValue != null) {
+          widget.updatePhoneAngleState(_angleToIndex[newValue]!);
+        }
+      },
     );
   }
 }

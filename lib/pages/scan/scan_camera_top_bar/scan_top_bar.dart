@@ -53,10 +53,11 @@ class ScanTopBar extends StatelessWidget
         (context, capturedImagesNotifiers, decodedImagesNotifier, child) {
       return CupertinoNavigationBar(
           padding: const EdgeInsetsDirectional.all(0),
-          leading: CommonWidgets.navBarLeadingButton(
-            context: context,
-            text: "Back",
-            onPressed: () => Navigator.pop(context),
+          leading: CupertinoNavigationBarBackButton(
+            previousPageTitle: "Home",
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           middle: const Text(
             'Scan',
