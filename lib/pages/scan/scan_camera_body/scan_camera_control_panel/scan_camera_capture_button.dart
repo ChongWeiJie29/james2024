@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:provider/provider.dart';
 
@@ -23,64 +22,56 @@ class ScanCameraCaptureButton extends StatefulWidget {
 }
 
 class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
-  Color _buttonColor = Colors.transparent;
-
   int get _phoneAngleState => widget.phoneAngleState;
 
   Widget _cameraCaptureButton() {
     return Consumer<CapturedImagesNotifiers>(
         builder: (context, capturedImagesNotifier, child) {
-      return Listener(
-        onPointerDown: (_) {
-          setState(() {
-            _buttonColor = CupertinoColors.systemGrey2;
-          });
-        },
-        onPointerCancel: (_) {
-          setState(() {
-            _buttonColor = Colors.transparent;
-          });
-        },
-        onPointerUp: (_) {
-          setState(() {
-            _buttonColor = Colors.transparent;
-          });
-        },
-        child: CupertinoButton(
-          pressedOpacity: 1,
-          onPressed: () async {
-            try {
-              await widget.initializeControllerFuture;
-              final image = await widget.controller.takePicture();
-              capturedImagesNotifier.addCapturedImages(_phoneAngleState, image);
-              widget.updatePhoneAngleState(widget.phoneAngleState + 1);
-            } on CameraException catch (_) {
-              // do something on error
-            }
-          },
-          child: const Icon(
-            CupertinoIcons.camera,
-            size: 40,
+      return SizedBox(
+        height: 60,
+        width: 60,
+        child: ClipOval(
+          child: CupertinoButton(
+            color: CupertinoColors.white,
+            onPressed: () async {
+              try {
+                await widget.initializeControllerFuture;
+                final image = await widget.controller.takePicture();
+                capturedImagesNotifier.addCapturedImages(_phoneAngleState, image);
+                widget.updatePhoneAngleState(widget.phoneAngleState + 1);
+              } on CameraException catch (_) {
+                // do something on error
+              }
+            },
+            child: Container(),
           ),
         ),
       );
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _outerCircleBorder() {
     return Container(
       height: 80,
       width: 80,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: _buttonColor,
         border: Border.all(
-          color: CupertinoColors.systemBlue,
-          width: 2,
+          color: CupertinoColors.white,
+          width: 4,
         ),
       ),
-      child: _cameraCaptureButton(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        _outerCircleBorder(),
+        _cameraCaptureButton(),
+      ],
     );
   }
 }
