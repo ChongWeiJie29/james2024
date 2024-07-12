@@ -16,4 +16,9 @@ class CapturedImagesNotifiers extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void clearImages() {
+    _capturedImages.clear();
+    notifyListeners();
+  }
 }

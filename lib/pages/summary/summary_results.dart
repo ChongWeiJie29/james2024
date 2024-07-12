@@ -30,7 +30,6 @@ class SummaryResults extends StatelessWidget {
         return SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Container(
-              height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
