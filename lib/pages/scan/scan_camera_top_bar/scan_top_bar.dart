@@ -9,12 +9,16 @@ import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class ScanTopBar extends StatefulWidget
+class ScanTopBar extends StatelessWidget
     implements ObstructingPreferredSizeWidget {
-  const ScanTopBar({super.key});
+  const ScanTopBar({
+    super.key,
+    required this.isLoading,
+    required this.updateLoadingState,
+  });
 
-  @override
-  State<ScanTopBar> createState() => _ScanTopBarState();
+  final bool isLoading;
+  final Function(bool) updateLoadingState;
 
   @override
   Size get preferredSize =>
@@ -22,10 +26,6 @@ class ScanTopBar extends StatefulWidget
 
   @override
   bool shouldFullyObstruct(BuildContext context) => true;
-}
-
-class _ScanTopBarState extends State<ScanTopBar> {
-  bool _isLoading = false;
 
   dynamic sendReq(List<XFile> capturedImages,
       DecodedImagesNotifier decodedImagesNotifier) async {
@@ -68,17 +68,17 @@ class _ScanTopBarState extends State<ScanTopBar> {
         ),
         trailing: SizedBox(
           width: 80,
-          child: _isLoading
+          child: isLoading
               ? const CupertinoActivityIndicator(
-            color: CupertinoColors.activeBlue,
-          )
+                  color: CupertinoColors.activeBlue,
+                )
               : CupertinoButton(
                   padding: EdgeInsets.zero,
                   onPressed: () async {
-                    setState(() => _isLoading = true);
+                    updateLoadingState(true);
                     await sendReq(capturedImagesNotifiers.capturedImages,
                         decodedImagesNotifier);
-                    setState(() => _isLoading = false);
+                    updateLoadingState(false);
                     if (context.mounted) {
                       Navigator.pushNamed(context, '/summary');
                     }

@@ -17,7 +17,7 @@ class SummaryControlPanel extends StatelessWidget {
             height: 50,
             child: CupertinoButton.filled(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/scan');
+                Navigator.pop(context);
                 capturedImagesNotifier.clearImages();
               },
               padding: const EdgeInsets.all(10),

@@ -10,19 +10,24 @@ class ScanCameraCaptureButton extends StatefulWidget {
     required this.updatePhoneAngleState,
     required this.initializeControllerFuture,
     required this.controller,
+    required this.isLoading,
   });
 
   final int phoneAngleState;
   final Function(int) updatePhoneAngleState;
   final Future<void> initializeControllerFuture;
   final CameraController controller;
+  final bool isLoading;
 
   @override
-  State<ScanCameraCaptureButton> createState() => _ScanCameraCaptureButtonState();
+  State<ScanCameraCaptureButton> createState() =>
+      _ScanCameraCaptureButtonState();
 }
 
 class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
   int get _phoneAngleState => widget.phoneAngleState;
+
+  bool get _isButtonDisabled => widget.isLoading;
 
   Widget _cameraCaptureButton() {
     return Consumer<CapturedImagesNotifiers>(
@@ -33,16 +38,19 @@ class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
         child: ClipOval(
           child: CupertinoButton(
             color: CupertinoColors.white,
-            onPressed: () async {
-              try {
-                await widget.initializeControllerFuture;
-                final image = await widget.controller.takePicture();
-                capturedImagesNotifier.addCapturedImages(_phoneAngleState, image);
-                widget.updatePhoneAngleState(widget.phoneAngleState + 1);
-              } on CameraException catch (_) {
-                // do something on error
-              }
-            },
+            onPressed: _isButtonDisabled
+                ? null
+                : () async {
+                    try {
+                      await widget.initializeControllerFuture;
+                      final image = await widget.controller.takePicture();
+                      capturedImagesNotifier.addCapturedImages(
+                          _phoneAngleState, image);
+                      widget.updatePhoneAngleState(widget.phoneAngleState + 1);
+                    } on CameraException catch (_) {
+                      // do something on error
+                    }
+                  },
             child: Container(),
           ),
         ),

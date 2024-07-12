@@ -4,8 +4,21 @@ import 'package:james2024/pages/scan/scan_camera_body/scan_camera_body.dart';
 import 'package:james2024/pages/scan/scan_camera_top_bar/scan_top_bar.dart';
 import 'package:provider/provider.dart';
 
-class ScanningPage extends StatelessWidget {
+class ScanningPage extends StatefulWidget {
   const ScanningPage({super.key});
+
+  @override
+  State<ScanningPage> createState() => _ScanningPageState();
+}
+
+class _ScanningPageState extends State<ScanningPage> {
+  bool _isLoading = false;
+
+  void _updateLoadingState(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +27,14 @@ class ScanningPage extends StatelessWidget {
         return PopScope(
           canPop: false,
           child: CupertinoPageScaffold(
-            navigationBar: const ScanTopBar(),
-            child: ScanCameraBody(camera: cameraNotifier.camera),
+            navigationBar: ScanTopBar(
+                isLoading: _isLoading,
+                updateLoadingState: _updateLoadingState,
+            ),
+            child: ScanCameraBody(
+              camera: cameraNotifier.camera,
+              isLoading: _isLoading,
+            ),
           ),
         );
       },

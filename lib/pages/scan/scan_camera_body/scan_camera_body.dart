@@ -3,9 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:james2024/pages/scan/scan_camera_body/scan_camera_main_body.dart';
 
 class ScanCameraBody extends StatefulWidget {
-  const ScanCameraBody({super.key, required this.camera});
+  const ScanCameraBody({
+    super.key,
+    required this.camera,
+    required this.isLoading,
+  });
 
   final CameraDescription camera;
+  final bool isLoading;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraBody();
@@ -14,6 +19,7 @@ class ScanCameraBody extends StatefulWidget {
 class _ScanCameraBody extends State<ScanCameraBody> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  bool get _isLoading => widget.isLoading;
 
   @override
   void initState() {
@@ -45,6 +51,7 @@ class _ScanCameraBody extends State<ScanCameraBody> {
             return ScanCameraMainBody(
               controller: _controller,
               initializeControllerFuture: _initializeControllerFuture,
+              isLoading: _isLoading,
             );
           } else {
             return const Center(child: CupertinoActivityIndicator());
