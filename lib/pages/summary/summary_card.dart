@@ -47,14 +47,6 @@ class _SummaryCard extends State<SummaryCard> {
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             border: Border.all(color: CupertinoColors.activeBlue, width: 2.0),
           ),
-          child: Text(
-            "${result['category']} ${(result['score'] * 100).toStringAsFixed(0)}%",
-            style: TextStyle(
-              background: Paint()..color = colorPick,
-              color: CupertinoColors.black,
-              fontSize: 18.0,
-            ),
-          ),
         ),
       );
     }).toList();

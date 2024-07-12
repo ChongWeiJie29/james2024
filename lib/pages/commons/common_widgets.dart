@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class CommonWidgets {
-  static Widget navBarLeadingButton(
-      {required BuildContext context,
-      required String text,
-      required Function() onPressed}) {
+  static Widget navBarLeadingButton({
+    required BuildContext context,
+    required String text,
+    required Function() onPressed,
+  }) {
     return SizedBox(
       width: 80,
       child: CupertinoButton(
@@ -20,10 +21,11 @@ class CommonWidgets {
     );
   }
 
-  static Widget navBarTrailingButton(
-      {required BuildContext context,
-      required String text,
-      required Function() onPressed}) {
+  static Widget navBarTrailingButton({
+    required BuildContext context,
+    required String text,
+    required Function() onPressed
+  }) {
     return SizedBox(
       width: 80,
       child: CupertinoButton(
