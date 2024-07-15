@@ -33,7 +33,6 @@ class _SummaryCard extends State<SummaryCard> {
   List<Widget> displayBoxes(BoxConstraints screen, File imageFile) {
     if (widget.decodedImage.isEmpty) return [];
 
-    Color colorPick = const Color.fromARGB(255, 50, 233, 30);
     return widget.decodedImage.map((result) {
       final factor = _parentHeight / result["imageHeight"];
 

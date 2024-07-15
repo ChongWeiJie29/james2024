@@ -21,9 +21,11 @@ class SummaryPage extends StatelessWidget {
           ),
           child: SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 20),
                 SummaryImages(),
+                SizedBox(height: 20),
                 SummaryResults(),
                 SummaryControlPanel(),
               ],
