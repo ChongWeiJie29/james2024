@@ -13,10 +13,18 @@ class ScanningPage extends StatefulWidget {
 
 class _ScanningPageState extends State<ScanningPage> {
   bool _isLoading = false;
+  int _phoneAngleState = 0;
 
   void _updateLoadingState(bool isLoading) {
     setState(() {
       _isLoading = isLoading;
+    });
+  }
+
+  void _updatePhoneAngle(int newState) {
+    setState(() {
+      if (newState > 5) return;
+      _phoneAngleState = newState;
     });
   }
 
@@ -30,10 +38,13 @@ class _ScanningPageState extends State<ScanningPage> {
             navigationBar: ScanTopBar(
                 isLoading: _isLoading,
                 updateLoadingState: _updateLoadingState,
+                updatePhoneAngle: _updatePhoneAngle,
             ),
             child: ScanCameraBody(
               camera: cameraNotifier.camera,
               isLoading: _isLoading,
+              phoneAngleState: _phoneAngleState,
+              updatePhoneAngle: _updatePhoneAngle,
             ),
           ),
         );

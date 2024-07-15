@@ -15,10 +15,12 @@ class ScanTopBar extends StatelessWidget
     super.key,
     required this.isLoading,
     required this.updateLoadingState,
+    required this.updatePhoneAngle,
   });
 
   final bool isLoading;
   final Function(bool) updateLoadingState;
+  final Function(int) updatePhoneAngle;
 
   @override
   Size get preferredSize =>
@@ -79,6 +81,7 @@ class ScanTopBar extends StatelessWidget
                     await sendReq(capturedImagesNotifiers.capturedImages,
                         decodedImagesNotifier);
                     updateLoadingState(false);
+                    updatePhoneAngle(0);
                     if (context.mounted) {
                       Navigator.pushNamed(context, '/summary');
                     }

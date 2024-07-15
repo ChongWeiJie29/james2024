@@ -50,7 +50,8 @@ class MyApp extends StatelessWidget {
             '/summary': (context) => const SummaryPage(),
             '/test': (context) => const TestPage(),
             '/guide': (context) => const UserGuide(),
-          });
+          }
+        );
       },
     );
   }

@@ -7,10 +7,14 @@ class ScanCameraBody extends StatefulWidget {
     super.key,
     required this.camera,
     required this.isLoading,
+    required this.phoneAngleState,
+    required this.updatePhoneAngle,
   });
 
   final CameraDescription camera;
   final bool isLoading;
+  final int phoneAngleState;
+  final Function(int) updatePhoneAngle;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraBody();
@@ -19,7 +23,10 @@ class ScanCameraBody extends StatefulWidget {
 class _ScanCameraBody extends State<ScanCameraBody> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
   bool get _isLoading => widget.isLoading;
+  int get _phoneAngleState => widget.phoneAngleState;
+  Function(int) get _updatePhoneAngle => widget.updatePhoneAngle;
 
   @override
   void initState() {
@@ -45,17 +52,20 @@ class _ScanCameraBody extends State<ScanCameraBody> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return ScanCameraMainBody(
-              controller: _controller,
-              initializeControllerFuture: _initializeControllerFuture,
-              isLoading: _isLoading,
-            );
-          } else {
-            return const Center(child: CupertinoActivityIndicator());
-          }
-        });
+      future: _initializeControllerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ScanCameraMainBody(
+            controller: _controller,
+            initializeControllerFuture: _initializeControllerFuture,
+            isLoading: _isLoading,
+            phoneAngleState: _phoneAngleState,
+            updatePhoneAngle: _updatePhoneAngle,
+          );
+        } else {
+          return const Center(child: CupertinoActivityIndicator());
+        }
+      }
+    );
   }
 }

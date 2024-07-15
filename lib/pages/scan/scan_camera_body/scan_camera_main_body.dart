@@ -10,26 +10,25 @@ class ScanCameraMainBody extends StatefulWidget {
     required this.controller,
     required this.initializeControllerFuture,
     required this.isLoading,
+    required this.phoneAngleState,
+    required this.updatePhoneAngle,
   });
 
   final CameraController controller;
   final Future<void> initializeControllerFuture;
   final bool isLoading;
+  final int phoneAngleState;
+  final Function(int) updatePhoneAngle;
 
   @override
   State<StatefulWidget> createState() => _ScanCameraMainBody();
 }
 
 class _ScanCameraMainBody extends State<ScanCameraMainBody> {
-  int _phoneAngleState = 0;
-  bool get _isLoading => widget.isLoading;
 
-  void updatePhoneAngle(int newState) {
-    setState(() {
-      if (newState > 5) return;
-      _phoneAngleState = newState;
-    });
-  }
+  bool get _isLoading => widget.isLoading;
+  int get _phoneAngleState => widget.phoneAngleState;
+  Function(int) get _updatePhoneAngle => widget.updatePhoneAngle;
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,12 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
         ),
         ScanCameraStateButton(
           phoneAngleState: _phoneAngleState,
-          updatePhoneAngleState: updatePhoneAngle,
+          updatePhoneAngleState: _updatePhoneAngle,
         ),
         const SizedBox(height: 100),
         ScanCameraCaptureButton(
           phoneAngleState: _phoneAngleState,
-          updatePhoneAngleState: updatePhoneAngle,
+          updatePhoneAngleState: _updatePhoneAngle,
           initializeControllerFuture: widget.initializeControllerFuture,
           controller: widget.controller,
           isLoading: _isLoading,
