@@ -62,36 +62,32 @@ class _HomeOpenCameraButtonState extends State<HomeOpenCameraButton> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton.filled(
-      disabledColor: CupertinoColors.activeBlue,
-      onPressed: _isLoading ? null : () => checkServerStatus(context),
-      child: _isLoading
-          ? Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: CupertinoColors.white,
-                  width: 2,
-                ),
-              ),
-            child: const Row(
+    return SizedBox(
+      width: 250,
+      height: 50,
+      child: CupertinoButton.filled(
+        padding: EdgeInsets.zero,
+        disabledColor: CupertinoColors.activeBlue,
+        onPressed: _isLoading ? null : () => checkServerStatus(context),
+        child: _isLoading
+            ? const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Pinging Server...',
+                    'Pinging Servers',
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(width: 10),
                   CupertinoActivityIndicator(
                     color: CupertinoColors.black,
-                    radius: 12,
                   ),
                 ],
+              )
+            : const Text(
+                'Open Camera',
+                style: TextStyle(fontSize: 20),
               ),
-          )
-          : const Text(
-              'Open Camera',
-              style: TextStyle(fontSize: 20),
-            ),
+      ),
     );
   }
 }
