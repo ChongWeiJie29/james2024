@@ -9,6 +9,7 @@ class SummaryImages extends StatelessWidget {
   const SummaryImages({super.key});
 
   final double cellHeight = 350;
+  final double cellLabel = 50;
   final int imgCount = 6;
 
   Widget renderImages(int i, CapturedImagesNotifiers capturedImagesNotifiers, DecodedImagesNotifier decodedImagesNotifier) {
@@ -18,7 +19,7 @@ class SummaryImages extends StatelessWidget {
       capturedImagesNotifiers.capturedImages[i],
       decodedImage: decodedImagesNotifier
           .decodedImages[i],
-      parentHeight: cellHeight,
+      parentHeight: cellHeight - cellLabel,
     );
   }
 
@@ -61,8 +62,8 @@ class SummaryImages extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: cellHeight - 50,
-                        width: cellHeight - 50,
+                        height: cellHeight - cellLabel,
+                        width: cellHeight - cellLabel,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
+import 'package:james2024/pages/commons/common_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -28,6 +30,19 @@ class ScanTopBar extends StatelessWidget
 
   @override
   bool shouldFullyObstruct(BuildContext context) => true;
+
+  Future<bool> isServerOnline() async {
+    var apiEndpoint = dotenv.env['API_ENDPOINT'];
+    try {
+      await get(Uri.parse('$apiEndpoint')).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw TimeoutException("Server is not responding"),
+      );
+    } on TimeoutException catch (_) {
+      return false;
+    }
+    return true;
+  }
 
   dynamic sendReq(List<XFile> capturedImages,
       DecodedImagesNotifier decodedImagesNotifier) async {
@@ -74,6 +89,19 @@ class ScanTopBar extends StatelessWidget
                   padding: EdgeInsets.zero,
                   onPressed: () async {
                     updateLoadingState(true);
+                    if (!await isServerOnline() && context.mounted) {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) {
+                          return CommonWidgets.serverUnavailableDialogue(
+                            context: context,
+                            msg: "Backend server is not running, please contact the developers.",
+                          );
+                        });
+                      updateLoadingState(false);
+                      updatePhoneAngle(0);
+                      return;
+                    }
                     await sendReq(capturedImagesNotifiers.capturedImages,
                         decodedImagesNotifier);
                     updateLoadingState(false);

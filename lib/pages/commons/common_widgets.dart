@@ -24,7 +24,7 @@ class CommonWidgets {
   static Widget navBarTrailingButton({
     required BuildContext context,
     required String text,
-    required Function() onPressed
+    required Function() onPressed,
   }) {
     return SizedBox(
       width: 80,
@@ -33,6 +33,28 @@ class CommonWidgets {
         onPressed: onPressed,
         child: Text(text),
       ),
+    );
+  }
+
+  static Widget serverUnavailableDialogue({
+    required BuildContext context,
+    required String msg,
+  }) {
+    return CupertinoAlertDialog(
+      title: const Text(
+        'Not Available',
+        style: TextStyle(color: CupertinoColors.systemRed),
+      ),
+      content: Text(msg),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          child: const Text(
+            'OK',
+            style: TextStyle(color: CupertinoColors.systemBlue),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
     );
   }
 }

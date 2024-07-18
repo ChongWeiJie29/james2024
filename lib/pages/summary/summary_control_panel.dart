@@ -30,8 +30,10 @@ class SummaryControlPanel extends StatelessWidget {
             height: 50,
             child: CupertinoButton.filled(
               alignment: Alignment.center,
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed('/home'),
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/home');
+                capturedImagesNotifier.clearImages();
+              },
               padding: EdgeInsets.zero,
               child: const Icon(CupertinoIcons.house_fill),
             ),
