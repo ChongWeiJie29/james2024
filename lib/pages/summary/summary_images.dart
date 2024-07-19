@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 class SummaryImages extends StatelessWidget {
   const SummaryImages({super.key});
 
-  final double cellHeight = 350;
-  final double cellLabel = 50;
+  final double cellHeight = 300;
+  final double cellLabel = 30;
   final int imgCount = 6;
 
   Widget renderImages(int i, CapturedImagesNotifiers capturedImagesNotifiers, DecodedImagesNotifier decodedImagesNotifier) {
@@ -52,20 +52,22 @@ class SummaryImages extends StatelessWidget {
                       (BuildContext context, int i) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        phoneAngles[i],
-                        style: const TextStyle(
-                          color: CupertinoColors.white,
-                          fontSize: 20,
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          phoneAngles[i],
+                          style: const TextStyle(
+                            color: CupertinoColors.white,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                       Container(
                         height: cellHeight - cellLabel,
-                        width: cellHeight - cellLabel,
+                        width: cellHeight - cellLabel - 60,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: CupertinoColors.white,
                             width: 1,

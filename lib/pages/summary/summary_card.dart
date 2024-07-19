@@ -54,18 +54,17 @@ class _SummaryCard extends State<SummaryCard> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder (
-      builder: (context, constraints) => SizedBox(
-        width: constraints.maxWidth,
-        height: constraints.maxHeight,
-        child: Center (
+      builder: (context, constraints) {
+        print('This is length of Summary Card ${constraints.maxWidth}');
+        return Center(
           child: Stack(
             children: [
               Image.file(imageFile),
               ...displayBoxes(constraints, imageFile)
             ],
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

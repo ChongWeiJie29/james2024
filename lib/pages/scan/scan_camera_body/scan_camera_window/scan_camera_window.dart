@@ -11,20 +11,21 @@ class ScanCameraWindow extends StatelessWidget {
 
   final CameraController controller;
   final int phoneAngleState;
+  final double aspectRatio = 3 / 4;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 3 / 4,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CameraPreview(controller),
-          ScanCameraOverlay(
-            phoneAngleState: phoneAngleState,
-          ),
-        ],
-      ),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      double width = constraints.maxWidth;
+      return AspectRatio(
+        aspectRatio: aspectRatio,
+        child: CameraPreview(controller,
+            child: ScanCameraOverlay(
+              phoneAngleState: phoneAngleState,
+              cameraWidth: width,
+              aspectRatio: aspectRatio,
+            )),
+      );
+    });
   }
 }

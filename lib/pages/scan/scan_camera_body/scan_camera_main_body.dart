@@ -43,7 +43,6 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
           phoneAngleState: _phoneAngleState,
           updatePhoneAngleState: _updatePhoneAngle,
         ),
-        const SizedBox(height: 100),
         ScanCameraCaptureButton(
           phoneAngleState: _phoneAngleState,
           updatePhoneAngleState: _updatePhoneAngle,
