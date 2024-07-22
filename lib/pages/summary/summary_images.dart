@@ -38,7 +38,7 @@ class SummaryImages extends StatelessWidget {
     return Consumer2<CapturedImagesNotifiers, DecodedImagesNotifier>(
       builder:
           (context, capturedImagesNotifiers, decodedImagesNotifier, child) {
-        int itemCount = capturedImagesNotifiers.capturedImages.length;
+        int itemCount = decodedImagesNotifier.decodedImages.length;
         return SizedBox(
           height: cellHeight,
           child: CustomScrollView(

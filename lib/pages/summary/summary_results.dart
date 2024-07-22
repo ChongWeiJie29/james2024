@@ -1,23 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:james2024/pages/scan/scan_common.dart';
+import 'package:james2024/pages/summary/model_prediction.dart';
 import 'package:provider/provider.dart';
+
+import 'bbox.dart';
 
 class SummaryResults extends StatelessWidget {
   const SummaryResults({super.key});
 
-  Widget processResults(List<dynamic> decodedImages) {
+  Widget processResults(List<ModelPrediction> decodedImages) {
     Map<int, int> results = {};
-    for (var i = 0; i < decodedImages.length; i++) {
+    for (int i = 0; i < decodedImages.length; i++) {
       int count = 0;
-      for (var detection in decodedImages[i]) {
-        var category = detection['category'];
-        count += category == "scratch" ? 1 : 0;
+      for (Bbox bbox in decodedImages[i].predictions) {
+        count += bbox.category == PredictionType.scratch ? 1 : 0;
       }
       results[i] = count;
     }
     String resultText = "";
-    for (var result in results.entries) {
+    for (MapEntry<int, int> result in results.entries) {
       resultText += "${phoneAngles[result.key]}: ${result.value} \n";
     }
     return Text(resultText);

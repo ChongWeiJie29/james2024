@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../change_notifiers/captured_images_notifiers.dart';
@@ -8,8 +9,8 @@ class SummaryControlPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CapturedImagesNotifiers>(
-        builder: (context, capturedImagesNotifier, child) {
+    return Consumer2<CapturedImagesNotifiers, DecodedImagesNotifier>(
+        builder: (context, capturedImagesNotifier, decodedImagesNotifier, child) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -19,6 +20,7 @@ class SummaryControlPanel extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
                 capturedImagesNotifier.clearImages();
+                decodedImagesNotifier.clearImages();
               },
               padding: const EdgeInsets.all(10),
               child: const Text('Next Phone'),
@@ -33,6 +35,7 @@ class SummaryControlPanel extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/home');
                 capturedImagesNotifier.clearImages();
+                decodedImagesNotifier.clearImages();
               },
               padding: EdgeInsets.zero,
               child: const Icon(CupertinoIcons.house_fill),

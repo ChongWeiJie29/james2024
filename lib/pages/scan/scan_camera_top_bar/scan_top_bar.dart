@@ -32,7 +32,7 @@ class ScanTopBar extends StatelessWidget
   bool shouldFullyObstruct(BuildContext context) => true;
 
   Future<bool> isServerOnline() async {
-    var apiEndpoint = dotenv.env['API_ENDPOINT'];
+    String? apiEndpoint = dotenv.env['API_ENDPOINT'];
     try {
       await get(Uri.parse('$apiEndpoint')).timeout(
         const Duration(seconds: 5),
@@ -46,8 +46,8 @@ class ScanTopBar extends StatelessWidget
 
   dynamic sendReq(List<XFile> capturedImages,
       DecodedImagesNotifier decodedImagesNotifier) async {
-    var apiEndpoint = dotenv.env['API_ENDPOINT'];
-    var request = MultipartRequest(
+    String? apiEndpoint = dotenv.env['API_ENDPOINT'];
+    MultipartRequest request = MultipartRequest(
       'POST',
       Uri.parse('$apiEndpoint/detect'),
     );
@@ -60,8 +60,8 @@ class ScanTopBar extends StatelessWidget
         contentType: MediaType('image', 'jpg'),
       ));
     }
-    var response = await request.send();
-    var responseData = await response.stream.bytesToString();
+    StreamedResponse response = await request.send();
+    String responseData = await response.stream.bytesToString();
     decodedImagesNotifier.setDecodedImages(json.decode(responseData));
   }
 

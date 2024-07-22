@@ -18,7 +18,7 @@ class _HomeOpenCameraButtonState extends State<HomeOpenCameraButton> {
   get _serverUnavailableDialogue => widget.serverUnavailableDialogue;
 
   dynamic checkServerStatus(BuildContext context) async {
-    var apiEndpoint = dotenv.env['API_ENDPOINT'];
+    String? apiEndpoint = dotenv.env['API_ENDPOINT'];
     setState(() {
       _isLoading = true;
     });

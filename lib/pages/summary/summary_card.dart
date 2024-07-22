@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:james2024/pages/summary/model_prediction.dart';
 
 class SummaryCard extends StatefulWidget {
   const SummaryCard({
@@ -13,7 +14,7 @@ class SummaryCard extends StatefulWidget {
 
   final int index;
   final XFile capturedImage;
-  final List<dynamic> decodedImage;
+  final ModelPrediction decodedImage;
   final double parentHeight;
 
   @override
@@ -22,7 +23,8 @@ class SummaryCard extends StatefulWidget {
 
 class _SummaryCard extends State<SummaryCard> {
   late final File imageFile;
-  get _parentHeight => widget.parentHeight;
+  double get _parentHeight => widget.parentHeight;
+  ModelPrediction get _decodedImage => widget.decodedImage;
 
   @override
   void initState() {
@@ -31,31 +33,15 @@ class _SummaryCard extends State<SummaryCard> {
   }
 
   List<Widget> displayBoxes(BoxConstraints screen, File imageFile) {
-    if (widget.decodedImage.isEmpty) return [];
-
-    return widget.decodedImage.map((result) {
-      final factor = _parentHeight / result["imageHeight"];
-
-      return Positioned(
-        left: result["bbox"][0].toDouble() * factor,
-        top: result["bbox"][1].toDouble() * factor,
-        width: (result["bbox"][2] - result["bbox"][0]).toDouble() * factor,
-        height: (result["bbox"][3] - result["bbox"][1]).toDouble() * factor,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: Border.all(color: CupertinoColors.activeBlue, width: 2.0),
-          ),
-        ),
-      );
-    }).toList();
+    if (_decodedImage.isEmpty) return [];
+    return _decodedImage.convertToWidgets(_parentHeight);
   }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder (
       builder: (context, constraints) {
-        print('This is length of Summary Card ${constraints.maxWidth}');
+        // print('This is length of Summary Card ${constraints.maxWidth}');
         return Center(
           child: Stack(
             children: [
