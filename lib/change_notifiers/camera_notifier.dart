@@ -8,6 +8,5 @@ class CameraNotifier extends ChangeNotifier {
 
   void setCamera(CameraDescription camera) {
     _camera = camera;
-    notifyListeners();
   }
 }

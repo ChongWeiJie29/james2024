@@ -33,7 +33,7 @@ class _SummaryCard extends State<SummaryCard> {
   }
 
   List<Widget> displayBoxes(BoxConstraints screen, File imageFile) {
-    if (_decodedImage.isEmpty) return [];
+    if (_decodedImage.predictions.isEmpty) return [];
     return _decodedImage.convertToWidgets(_parentHeight);
   }
 
@@ -41,7 +41,6 @@ class _SummaryCard extends State<SummaryCard> {
   Widget build(BuildContext context) {
     return LayoutBuilder (
       builder: (context, constraints) {
-        // print('This is length of Summary Card ${constraints.maxWidth}');
         return Center(
           child: Stack(
             children: [

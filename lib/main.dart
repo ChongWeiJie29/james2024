@@ -29,29 +29,35 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.camera});
 
   final CameraDescription camera;
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<CameraNotifier>(context, listen: false).setCamera(widget.camera);
+  }
+
+  @override
   Widget build(BuildContext context) {
     Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
-    return Consumer<CameraNotifier>(
-      builder: (context, cameraNotifier, child) {
-        cameraNotifier.setCamera(camera);
-        return CupertinoApp(
-          debugShowCheckedModeBanner: false,
-          theme: CupertinoThemeData(brightness: platformBrightness),
-          home: const HomePage(),
-          routes: {
-            '/home': (context) => const HomePage(),
-            '/scan': (context) => const ScanningPage(),
-            '/summary': (context) => const SummaryPage(),
-            '/test': (context) => const TestPage(),
-            '/guide': (context) => const UserGuide(),
-          }
-        );
+    return CupertinoApp(
+      debugShowCheckedModeBanner: false,
+      theme: CupertinoThemeData(brightness: platformBrightness),
+      home: const HomePage(),
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/scan': (context) => const ScanningPage(),
+        '/summary': (context) => const SummaryPage(),
+        '/test': (context) => const TestPage(),
+        '/guide': (context) => const UserGuide(),
       },
     );
   }

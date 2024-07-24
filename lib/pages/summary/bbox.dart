@@ -6,11 +6,11 @@ enum PredictionType {
 }
 
 class Bbox {
-  List<double> coordinates;
+  List<num> coordinates;
   PredictionType category;
-  double score;
-  double imageWidth;
-  double imageHeight;
+  num score;
+  num imageWidth;
+  num imageHeight;
 
   Bbox({
     required this.coordinates,
@@ -22,7 +22,7 @@ class Bbox {
 
   factory Bbox.fromJson(dynamic json) {
     return Bbox(
-      coordinates: List<double>.from(json['bbox'] as List),
+      coordinates: List<num>.from(json['bbox'] as List),
       category: PredictionType.values.byName(json['category']),
       score: json['score'].toDouble(),
       imageWidth: json['imageWidth'].toDouble(),
@@ -37,5 +37,17 @@ class Bbox {
       case PredictionType.scratch:
         return CupertinoColors.systemRed;
     }
+  }
+
+  num getHeight() {
+    return coordinates[3] - coordinates[1];
+  }
+
+  num getWidth() {
+    return coordinates[2] - coordinates[0];
+  }
+
+  num getArea() {
+    return getHeight() * getWidth();
   }
 }
