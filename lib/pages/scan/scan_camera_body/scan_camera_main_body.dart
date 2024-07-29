@@ -43,6 +43,7 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
           phoneAngleState: _phoneAngleState,
           updatePhoneAngleState: _updatePhoneAngle,
         ),
+        const SizedBox(height: 0, width: 0),
         ScanCameraCaptureButton(
           phoneAngleState: _phoneAngleState,
           updatePhoneAngleState: _updatePhoneAngle,
@@ -50,7 +51,7 @@ class _ScanCameraMainBody extends State<ScanCameraMainBody> {
           controller: widget.controller,
           isLoading: _isLoading,
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 0, width: 0),
       ]
     );
   }
