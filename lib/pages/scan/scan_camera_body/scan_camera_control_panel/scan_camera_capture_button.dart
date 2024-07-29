@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 import 'package:provider/provider.dart';
 
@@ -43,9 +44,21 @@ class _ScanCameraCaptureButtonState extends State<ScanCameraCaptureButton> {
                 : () async {
                     try {
                       await widget.initializeControllerFuture;
-                      final image = await widget.controller.takePicture();
+                      final XFile image = await widget.controller.takePicture();
+                      CroppedFile? cropped = await ImageCropper().cropImage(
+                        sourcePath: image.path,
+                        uiSettings: [
+                          AndroidUiSettings(
+                            lockAspectRatio: false,
+                            hideBottomControls: true,
+                          ),
+                        ],
+                      );
+                      if (cropped == null) {
+                        return;
+                      }
                       capturedImagesNotifier.addCapturedImages(
-                          _phoneAngleState, image);
+                          _phoneAngleState, XFile(cropped.path));
                       widget.updatePhoneAngleState(widget.phoneAngleState + 1);
                     } on CameraException catch (_) {
                       // do something on error

@@ -18,6 +18,7 @@ class CapturedImagesNotifiers extends ChangeNotifier {
     } else {
       _capturedImages[index] = capturedImage;
     }
+    print("================== Hello, image captured ==================");
     notifyListeners();
   }
 
