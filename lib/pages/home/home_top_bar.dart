@@ -15,23 +15,22 @@ class HomeTopBar extends StatelessWidget
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text("Main Menu"),
-        message: const Text("Select a page to jump to:"),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            onPressed: () => Navigator.pushNamed(
-              context,
-              '/guide',
+          title: const Text("Main Menu"),
+          message: const Text("Select a page to jump to:"),
+          actions: <CupertinoActionSheetAction>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/guide');
+              },
+              child: const Text("User Guide"),
             ),
-            child: const Text("User Guide"),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDefaultAction: true,
-          onPressed: () => Navigator.pop(context),
-          child: const Text("Cancel"),
-        )
-      ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            isDefaultAction: true,
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          )),
     );
   }
 
