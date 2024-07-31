@@ -1,85 +1,42 @@
-## Welcome to the guide page
+# JAMES
 
-This is a markdown page.
+✨ Just Another Mobile Evaluation System ✨
 
-Placeholder
+## Home Page
 
-Placeholder
+Click on "Open Camera" in the landing page. It will bring you to the scanning page 📷.
+   - 🚫 An error message will pop up if the servers are down.
+   - 🚫 You cannot proceed if the server is down.
 
-Placeholder
+## Scanning Phase
 
-Placeholder
+Proceed to take pictures of the 6️⃣ different angles of
+the phone that you want to check for scratches.
 
-Placeholder
+Take note:
 
-Placeholder
+- ✔️ You **CAN** retake the same angle twice. The latest picture will be recorded.
 
-Placeholder
+- ✔️ You **CAN** take less than 6 angles.
 
-Placeholder
+- ❌ You **CANNOT** take a picture of the next angle until the one before it is taken.
+Angles that are not allowed to be taken will be grayed out.
 
-Placeholder
+Upon taking a picture of **each** angle, you will be brought into another page to crop and resize
+the picture to prevent background from affecting the results.
 
-Placeholder
+After you are done with all the angles, click "Done" on the top right to process the images.
+   - ⚠️This process takes a while.
 
-- Item 1  
-next item
-- Item 2
-- Item 3
+## Interpreting Results
 
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
-```python
-def helloworld():
-    print("Hello World")
-```
+After the images are processed by the server, you will be brought to the results page.
+- 🔵 Blue boxes indicate that the AI detects a phone.
+- 🔴 Red boxes indicate a scratch.
+
+The results shown are the total number of scratches detected for the respective angle.
+Note that the final grade of the phone is still subject to your discretion.
+
+There are 2 buttons available at the bottom of the page:
+- **Next phone**: Goes to camera for next phone to be processed.
+- **Home**: Home page.
