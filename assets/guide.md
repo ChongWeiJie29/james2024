@@ -38,5 +38,5 @@ The results shown are the total number of scratches detected for the respective 
 Note that the final grade of the phone is still subject to your discretion.
 
 There are 2 buttons available at the bottom of the page:
-- **Next phone**: Goes to camera for next phone to be processed.
-- **Home**: Home page.
+- ➡️ **Next phone**: Goes to camera for next phone to be processed.
+- 🏠: Home page.

@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:james2024/change_notifiers/decoded_images_notifier.dart';
 import 'package:provider/provider.dart';
-
-import '../../change_notifiers/captured_images_notifiers.dart';
+import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 
 class SummaryControlPanel extends StatelessWidget {
   const SummaryControlPanel({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<CapturedImagesNotifiers, DecodedImagesNotifier>(
-        builder: (context, capturedImagesNotifier, decodedImagesNotifier, child) {
+    return Consumer2<CapturedImagesNotifiers, DecodedImagesNotifier>(builder:
+        (context, capturedImagesNotifier, decodedImagesNotifier, child) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

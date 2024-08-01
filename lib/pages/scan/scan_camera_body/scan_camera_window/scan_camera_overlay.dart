@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:james2024/change_notifiers/captured_images_notifiers.dart';
 
 class ScanCameraOverlay extends StatefulWidget {
   const ScanCameraOverlay({
@@ -19,8 +21,8 @@ class ScanCameraOverlay extends StatefulWidget {
 class _ScanCameraOverlay extends State<ScanCameraOverlay> {
   double get _cameraWidth => widget.cameraWidth;
   double get _cameraHeight => _cameraWidth * widget.aspectRatio;
-  double _horizontalPadding = 0;
-  double _verticalPadding = 0;
+  double _widthRatio = 0;
+  double _heightRatio = 0;
 
   @override
   void initState() {
@@ -32,57 +34,70 @@ class _ScanCameraOverlay extends State<ScanCameraOverlay> {
       case 0:
       case 1:
         setState(() {
-          _horizontalPadding = 1 / 5 * _cameraWidth;
-          _verticalPadding = 1 / 10 * _cameraHeight;
+          _widthRatio = 3 / 5;
+          _heightRatio = 4 / 5;
         });
       case 2:
       case 4:
         setState(() {
-          _horizontalPadding = 5 / 12 * _cameraWidth;
-          _verticalPadding = 1 / 8 * _cameraHeight;
+          _widthRatio = 1 / 6;
+          _heightRatio = 3 / 4;
         });
       case 3:
       case 5:
         setState(() {
-          _horizontalPadding = 7 / 16 * _cameraWidth;
-          _verticalPadding = 1 / 10 * _cameraHeight;
+          _widthRatio = 1 / 8;
+          _heightRatio = 4 / 5;
         });
     }
+  }
+
+  double _getPadding(double ratio, double length) {
+    return (length - ratio * length) / 2;
   }
 
   @override
   Widget build(BuildContext context) {
     calculatePadding();
-    return LayoutBuilder(builder: (context, constraints) {
-      Color color = const Color(0x55000000);
-      return Stack(fit: StackFit.expand, children: [
-        Align(
-            alignment: Alignment.centerLeft,
-            child: Container(width: _horizontalPadding, color: color)),
-        Align(
-            alignment: Alignment.centerRight,
-            child: Container(width: _horizontalPadding, color: color)),
-        Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-                margin: EdgeInsets.only(
-                    left: _horizontalPadding, right: _horizontalPadding),
-                height: _verticalPadding,
-                color: color)),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-                margin: EdgeInsets.only(
-                    left: _horizontalPadding, right: _horizontalPadding),
-                height: _verticalPadding,
-                color: color)),
-        Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: _horizontalPadding, vertical: _verticalPadding),
-          decoration: BoxDecoration(
-              border: Border.all(color: CupertinoColors.activeBlue)),
-        )
-      ]);
+    return Consumer<CapturedImagesNotifiers>(
+        builder: (context, capturedImagesNotifier, child) {
+      capturedImagesNotifier.setCroppingDimensions(_widthRatio, _heightRatio);
+      return LayoutBuilder(builder: (context, constraints) {
+        Color color = const Color(0x55000000);
+        return Stack(fit: StackFit.expand, children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                  width: _getPadding(_widthRatio, _cameraWidth), color: color)),
+          Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                  width: _getPadding(_widthRatio, _cameraWidth), color: color)),
+          Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                  margin: EdgeInsets.only(
+                      left: _getPadding(_widthRatio, _cameraWidth),
+                      right: _getPadding(_widthRatio, _cameraWidth)),
+                  height: _getPadding(_heightRatio, _cameraHeight),
+                  color: color)),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  margin: EdgeInsets.only(
+                      left: _getPadding(_widthRatio, _cameraWidth),
+                      right: _getPadding(_widthRatio, _cameraWidth)),
+                  height: _getPadding(_heightRatio, _cameraHeight),
+                  color: color)),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: _getPadding(_widthRatio, _cameraWidth),
+                vertical: _getPadding(_heightRatio, _cameraHeight)),
+            decoration: BoxDecoration(
+                border: Border.all(color: CupertinoColors.activeBlue)),
+          )
+        ]);
+      });
     });
   }
 }
