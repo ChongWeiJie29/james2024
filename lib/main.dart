@@ -7,7 +7,6 @@ import 'package:james2024/pages/guide/user_guide.dart';
 import 'package:james2024/pages/home/home.dart';
 import 'package:james2024/pages/scan/scan.dart';
 import 'package:james2024/pages/summary/summary.dart';
-import 'package:james2024/pages/test_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -56,7 +55,6 @@ class _MyAppState extends State<MyApp> {
         '/home': (context) => const HomePage(),
         '/scan': (context) => const ScanningPage(),
         '/summary': (context) => const SummaryPage(),
-        '/test': (context) => const TestPage(),
         '/guide': (context) => const UserGuide(),
       },
     );
