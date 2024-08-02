@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart';
 
 class UserGuideBody extends StatefulWidget {
   const UserGuideBody({super.key});
@@ -32,6 +34,37 @@ class _UserGuideBodyState extends State<UserGuideBody> {
       return out;
     } catch (e) {
       return "Error reading file: $e";
+    }
+  }
+
+  void _easterEgg() async {
+    String? easterEggAPI = dotenv.env['EASTER_EGG'];
+    try {
+      final Response response = await get(Uri.parse('$easterEggAPI'));
+      String easterEggMsg = response.body.substring(1, response.body.length - 1);
+      if (!mounted) {
+        return;
+      }
+      showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text(
+              "Warning",
+              style: TextStyle(color: CupertinoColors.systemRed),
+            ),
+            content: Text(easterEggMsg),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text("Close"),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+        },
+      );
+    } on Exception catch (e) {
+      // Do nothing, just cook
     }
   }
 
@@ -91,26 +124,12 @@ class _UserGuideBodyState extends State<UserGuideBody> {
                 curve: Curves.easeOut,
                 duration: const Duration(milliseconds: 500),
               );
-              // Implement easter egg and scroll to top
-              // Click 7 times in a row to reveal the easter egg
-              if (++_count >= 3) {
+              Future.delayed(const Duration(seconds: 2), () {
                 _count = 0;
-                showCupertinoDialog(
-                  context: context,
-                  builder: (context) {
-                    return CupertinoAlertDialog(
-                      title: const Text("Easter Egg"),
-                      content: const Text(
-                          "Congratulations! You found the easter egg!"),
-                      actions: [
-                        CupertinoDialogAction(
-                          child: const Text("Close"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    );
-                  },
-                );
+              });
+              if (++_count >= 7) {
+                _count = 0;
+                _easterEgg();
               }
             },
             backgroundColor: CupertinoColors.systemBlue,

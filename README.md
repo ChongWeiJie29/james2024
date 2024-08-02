@@ -20,15 +20,15 @@ Firstly, clone this repository onto your computer using the git clone command.
 $ git clone <URL of this repository>
 ```
 
-Then, cd to the root directory (~/james2024) and create a file called `.env` with the following
+Then, cd to the root directory `~/james2024` and create a file called `.env` with the following
 key value pair:
 
 ```
-API_ENDPOINT=<URL of the server>
+API_ENDPOINT=http://<server IP>:5000
 ```
 
-The URL of the server should be the IP address of the server that is hosting the AI model.
-This can be found on the main computer with the many many monitors.
+The IP address of the server is hosting the AI model and can be found on the main computer
+with the many many monitors.
 
 Then, make sure flutter is installed on the computer (duh >:0) Thereafter, run these commands
 to check if you have successfully installed flutter and no errors are present.
