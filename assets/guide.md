@@ -13,6 +13,9 @@ Click on "Open Camera" in the landing page. It will bring you to the scanning pa
 Proceed to take pictures of the 6️⃣ different angles of
 the phone that you want to check for scratches.
 
+⚠️ Be careful to take each angle within the outline, as cropping will occur 
+after taking each picture.
+
 Take note:
 
 - ✔️ You **CAN** retake the same angle twice. The latest picture will be recorded.
@@ -21,9 +24,6 @@ Take note:
 
 - ❌ You **CANNOT** take a picture of the next angle until the one before it is taken.
 Angles that are not allowed to be taken will be grayed out.
-
-Upon taking a picture of **each** angle, you will be brought into another page to crop and resize
-the picture to prevent background from affecting the results.
 
 After you are done with all the angles, click "Done" on the top right to process the images.
    - ⚠️This process takes a while.

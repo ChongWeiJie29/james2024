@@ -61,31 +61,33 @@ class _ScanCameraWindowState extends State<ScanCameraWindow> {
           onTapUp: (details) {
             _focusCamera(details);
           },
-          child: Stack(
-            children: [
-              CameraPreview(
-                _controller,
-                child: ScanCameraOverlay(
+          child: CameraPreview(
+            _controller,
+            child: Stack(
+              children: [
+                ScanCameraOverlay(
                   phoneAngleState: _phoneAngleState,
                   cameraWidth: width,
                   aspectRatio: aspectRatio,
                 ),
-              ),
-              if (_showFocusCircle)
-                Positioned(
-                  top: _y - 20,
-                  left: _x - 20,
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border:
-                          Border.all(color: CupertinoColors.white, width: 1.5),
+                if (_showFocusCircle)
+                  Positioned(
+                    top: _y - 30,
+                    left: _x - 30,
+                    child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: CupertinoColors.white,
+                          width: 2,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       );
